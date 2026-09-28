@@ -528,9 +528,9 @@
     "semantic_hash": "d7fc2c75eb6ce02c8a208fbc8a91a30f"
   },
   "resources/views/attendance/scan.blade.php": {
-    "mtime": 1790569844.4678054,
-    "seen": 1790569890.2014453,
-    "ast_hash": "dfe7b02c9908b06b62d55fd5cd15dfbb",
+    "mtime": 1790571790.7673638,
+    "seen": 1790571835.098378,
+    "ast_hash": "086feb27dcda9d5bcacc96b1daf87ba7",
     "semantic_hash": ""
   },
   "resources/views/auth/confirm-password.blade.php": {
@@ -708,9 +708,9 @@
     "semantic_hash": "f7d2b1202a440c9f8dc696d19b678b6c"
   },
   "resources/views/layouts/app.blade.php": {
-    "mtime": 1790570049.1119301,
-    "seen": 1790570105.420033,
-    "ast_hash": "3b2e3157d7693f3c0b1752dbbdc42da5",
+    "mtime": 1790571771.987352,
+    "seen": 1790571835.098428,
+    "ast_hash": "408cafcc18d1e66ec9dd7df820bc44ac",
     "semantic_hash": ""
   },
   "resources/views/layouts/guest.blade.php": {
