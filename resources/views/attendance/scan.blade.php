@@ -2,14 +2,23 @@
 
 @section('styles')
 <style>
-    /* Mode feedback status - Menggunakan warna lembut (pastel) agar tidak merusak mata */
-    .scan-wrapper.status-success { background-color: #d1fae5; border-color: #34d399; }
-    .scan-wrapper.status-checkout { background-color: #dbeafe; border-color: #60a5fa; }
-    .scan-wrapper.status-error { background-color: #fee2e2; border-color: #f87171; }
+    /* Mode feedback status - Menggunakan warna lembut & modern glow */
+    .scan-wrapper.status-success { 
+        background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 70%);
+        border-color: rgba(16, 185, 129, 0.4); 
+    }
+    .scan-wrapper.status-checkout { 
+        background: radial-gradient(circle at top right, rgba(2, 132, 199, 0.15), transparent 70%);
+        border-color: rgba(2, 132, 199, 0.4); 
+    }
+    .scan-wrapper.status-error { 
+        background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.15), transparent 70%);
+        border-color: rgba(239, 68, 68, 0.4); 
+    }
 
     .scan-wrapper {
-        border-radius: 20px;
-        transition: all 0.15s ease;
+        border-radius: 24px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 2px solid transparent;
         background-color: transparent;
     }
@@ -20,45 +29,48 @@
     }
     body.kiosk-mode .main-content {
         margin-left: 0 !important;
-        padding: 1rem !important;
+        padding: 1.5rem !important;
     }
 
     .scan-card {
         background-color: #ffffff;
-        border: 1px solid rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(226, 232, 240, 0.8);
         border-radius: 24px;
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.02);
         padding: 32px;
-        transition: all 0.15s ease;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
     .header-logo {
-        max-height: 80px;
+        max-height: 56px;
         object-fit: contain;
     }
 
     .clock-widget {
-        font-size: 3.5rem;
+        font-size: 2.8rem;
         font-weight: 800;
         letter-spacing: -1px;
-        background: linear-gradient(180deg, #0f172a, #334155);
+        font-variant-numeric: tabular-nums;
+        background: linear-gradient(135deg, #0f172a 0%, #0284c7 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        line-height: 1;
     }
 
     .date-widget {
-        font-size: 1.2rem;
-        color: #475569;
-        font-weight: 500;
+        font-size: 0.95rem;
+        color: #64748b;
+        font-weight: 600;
     }
 
     .profile-img {
-        width: 110px;
-        height: 110px;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
-        border-radius: 20px;
+        border-radius: 24px;
         border: 4px solid #ffffff;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 12px 25px -5px rgba(15, 23, 42, 0.15);
     }
 
     /* Focus Trap input */
@@ -73,9 +85,9 @@
     /* Scanner Camera box */
     #webcam-reader {
         width: 100%;
-        border-radius: 16px;
+        border-radius: 18px;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(226, 232, 240, 0.8);
     }
 
     .badge-category {
@@ -84,37 +96,55 @@
         font-weight: 700;
         font-size: 0.8rem;
     }
+
+    /* Pulse Scanner Graphic */
+    .scanner-target-box {
+        border: 2px dashed rgba(2, 132, 199, 0.4);
+        border-radius: 20px;
+        padding: 24px;
+        background: rgba(2, 132, 199, 0.02);
+        transition: all 0.3s ease;
+    }
+    .scanner-target-box:hover {
+        border-color: #0284c7;
+        background: rgba(2, 132, 199, 0.04);
+    }
 </style>
 @endsection
 
 @section('content')
-<div id="scanWrapper" class="scan-wrapper p-3">
+<div id="scanWrapper" class="scan-wrapper p-2">
     <!-- Focus Input untuk hardware scanner (Keyboard Wedge) -->
     <input type="text" id="scannerInput" class="focus-trap" autofocus autocomplete="off">
 
     <div class="container-fluid px-0">
         
-        <!-- Header Profil Sekolah (Modified layout slightly for admin panel integration) -->
-        <div class="d-flex align-items-center justify-content-between mb-4 bg-white p-4 rounded-4 shadow-sm border" style="border-color: rgba(0,0,0,0.05) !important;">
-            <div class="d-flex align-items-center">
+        <!-- Header Profil Sekolah -->
+        <div class="d-flex align-items-center justify-content-between mb-4 bg-white p-4 rounded-4 shadow-sm border" style="border-color: rgba(226, 232, 240, 0.8) !important;">
+            <div class="d-flex align-items-center gap-3">
                 @if($schoolLogo)
-                    <img src="{{ route('avatar.serve', $schoolLogo) }}" class="header-logo me-3" style="max-height: 60px;">
+                    <img src="{{ route('avatar.serve', $schoolLogo) }}" class="header-logo rounded-3 shadow-sm">
                 @else
-                    <div class="rounded bg-primary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                        <i class="bi bi-bank" style="font-size: 1.8rem; color: white;"></i>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 52px; height: 52px; background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%); color: white;">
+                        <i class="bi bi-qr-code" style="font-size: 1.6rem;"></i>
                     </div>
                 @endif
                 <div>
-                    <h3 class="m-0 fw-bold text-dark">{{ $schoolName }}</h3>
-                    <p class="m-0 text-muted" style="font-size: 0.95rem;">Layar Pindai Kehadiran Siswa & Staff</p>
+                    <div class="d-flex align-items-center gap-2">
+                        <h4 class="m-0 fw-bold text-dark">{{ $schoolName }}</h4>
+                        <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">
+                            <i class="bi bi-broadcast me-1"></i>Live Kiosk
+                        </span>
+                    </div>
+                    <p class="m-0 text-muted" style="font-size: 0.88rem;">Pindai Kartu Presensi Digital Siswa, Guru & Staff</p>
                 </div>
             </div>
-            <div class="d-none d-md-flex align-items-center justify-content-end">
-                <div class="text-end me-4">
-                    <div id="realtime-clock" class="clock-widget" style="font-size: 2.5rem; line-height: 1;">00:00:00</div>
-                    <div id="realtime-date" class="date-widget" style="font-size: 1rem;">Hari, 00 Bulan 2026</div>
+            <div class="d-none d-md-flex align-items-center justify-content-end gap-3">
+                <div class="text-end">
+                    <div id="realtime-clock" class="clock-widget">00:00:00</div>
+                    <div id="realtime-date" class="date-widget">Hari, 00 Bulan 2026</div>
                 </div>
-                <button id="fullscreenBtn" class="btn btn-outline-secondary shadow-sm rounded-circle d-flex align-items-center justify-content-center" title="Masuk Mode Layar Penuh" style="width: 45px; height: 45px; border-width: 2px;">
+                <button id="fullscreenBtn" class="btn btn-outline-secondary shadow-sm rounded-3 d-flex align-items-center justify-content-center" title="Masuk Mode Layar Penuh (Kiosk)" style="width: 44px; height: 44px;">
                     <i class="bi bi-arrows-fullscreen fs-5"></i>
                 </button>
             </div>
@@ -125,13 +155,18 @@
             <div class="col-lg-6">
                 <div class="scan-card h-100 d-flex flex-column justify-content-between">
                     <div>
-                        <h4 class="mb-3 fw-bold text-dark"><i class="bi bi-qr-code-scan me-2 text-primary"></i>Arahkan Barcode / QR Code</h4>
-                        <p class="text-muted small">Dekatkan barcode/QR pada ID Card ke barcode scanner hardware Anda. Sistem akan memindai secara otomatis.</p>
+                        <div class="scanner-target-box text-center mb-3">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(2, 132, 199, 0.1); color: #0284c7;">
+                                <i class="bi bi-upc-scan" style="font-size: 2rem;"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-1">Arahkan Barcode / QR Code</h5>
+                            <p class="text-muted small mb-0">Dekatkan barcode/QR pada ID Card ke barcode scanner hardware Anda. Sistem membaca otomatis.</p>
+                        </div>
                         
                         <!-- Toggle Webcam Scanner -->
-                        <div class="mt-4">
-                            <button id="toggleWebcamBtn" class="btn btn-outline-primary w-100 py-3 fw-bold">
-                                <i class="bi bi-camera-fill me-2"></i>Aktifkan Kamera Laptop / Webcam
+                        <div>
+                            <button id="toggleWebcamBtn" class="btn btn-outline-primary w-100 py-2 fw-bold rounded-3">
+                                <i class="bi bi-camera-fill me-2"></i>Aktifkan Kamera / Webcam
                             </button>
                         </div>
                         
@@ -140,36 +175,36 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 text-center">
-                        <span class="text-muted small"><i class="bi bi-info-circle me-1"></i>Aplikasi ini menggunakan Scanner Hardware. Pastikan USB scanner terpasang.</span>
+                    <div class="mt-4 pt-3 border-top border-secondary border-opacity-10 text-center">
+                        <span class="text-muted small"><i class="bi bi-info-circle me-1 text-primary"></i>Mendukung Barcode Scanner USB / Wireless & Kamera bawaan.</span>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
-                <div class="scan-card d-flex flex-column align-items-center justify-content-center text-center py-3" id="responseCard">
+                <div class="scan-card h-100 d-flex flex-column align-items-center justify-content-center text-center py-4" id="responseCard">
                     
                     <!-- Area Idle State -->
-                    <div id="idleState">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary bg-opacity-10 mx-auto mb-3" style="width: 100px; height: 100px;">
-                            <i class="bi bi-person-bounding-box text-muted" style="font-size: 3rem;"></i>
+                    <div id="idleState" class="w-100">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 shadow-sm" style="width: 90px; height: 90px; background: #f8fafc; border: 2px dashed #cbd5e1;">
+                            <i class="bi bi-person-badge text-muted" style="font-size: 2.5rem;"></i>
                         </div>
-                        <h3 class="fw-bold text-dark mb-2">SIAP MEMINDAI</h3>
-                        <p class="text-muted px-4">Silakan dekatkan barcode kartu Anda ke sensor scanner.</p>
+                        <h4 class="fw-bold text-dark mb-1">SIAP MEMINDAI</h4>
+                        <p class="text-muted small px-3 mb-0">Silakan dekatkan barcode kartu Anda ke sensor scanner.</p>
                     </div>
 
                     <!-- Area Active State (Result) -->
-                    <div id="activeState" class="d-none">
+                    <div id="activeState" class="d-none w-100">
                         <img id="resultPhoto" src="{{ asset('images/default-avatar.png') }}" class="profile-img mb-3">
-                        <h2 class="fw-bolder text-dark mb-2 display-6" id="resultName" style="text-transform: uppercase;">-</h2>
-                        <div class="mb-3">
+                        <h3 class="fw-bold text-dark mb-2" id="resultName" style="text-transform: uppercase;">-</h3>
+                        <div class="mb-3 d-flex justify-content-center gap-2">
                             <span class="badge badge-category bg-primary" id="resultCategory">SISWA</span>
                             <span class="badge badge-category bg-secondary" id="resultPosition">-</span>
                         </div>
                         
-                        <div class="alert mt-2 px-3 py-2 border-0 rounded-4" id="resultAlert" style="display: block !important; width: 100%; min-height: 80px;">
+                        <div class="alert mt-2 px-4 py-3 border-0 rounded-4 shadow-sm" id="resultAlert" style="display: block !important; width: 100%; min-height: 80px;">
                             <h5 class="alert-heading fw-bold m-0" id="resultAlertTitle">CHECK-IN SUKSES</h5>
-                            <p class="m-0 mt-1 small" id="resultAlertMsg">Berhasil melakukan check-in pada 07:12</p>
+                            <p class="m-0 mt-1 small" id="resultAlertMsg">Berhasil melakukan check-in</p>
                         </div>
                     </div>
 
