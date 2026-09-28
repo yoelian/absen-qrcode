@@ -75,12 +75,15 @@ require __DIR__.'/auth.php';
 
 // Route fallback khusus NativePHP Desktop untuk melayani file Storage (karena symlink tidak berjalan di Windows AppData)
 Route::get('avatar/{path}', function ($path) {
-    if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+    $cleanPath = str_replace(['..', "\0"], '', (string)$path);
+    $cleanPath = ltrim($cleanPath, '/\\');
+    
+    if (empty($cleanPath) || !\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
         return redirect(asset('images/default-avatar.png'));
     }
     
     // Bypass BinaryFileResponse untuk menghindari 403 di beberapa environment Windows
-    $file = \Illuminate\Support\Facades\Storage::disk('public')->get($path);
-    $mime = \Illuminate\Support\Facades\Storage::disk('public')->mimeType($path);
+    $file = \Illuminate\Support\Facades\Storage::disk('public')->get($cleanPath);
+    $mime = \Illuminate\Support\Facades\Storage::disk('public')->mimeType($cleanPath) ?: 'application/octet-stream';
     return response($file, 200)->header('Content-Type', $mime);
 })->where('path', '.*')->name('avatar.serve');

@@ -16,19 +16,22 @@ class AutoBackupMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Hanya lakukan cek backup pada request GET yang tidak memakan resource berat
-        // Dan hanya jika user sudah login (Admin)
+        return $next($request);
+    }
+
+    /**
+     * Handle tasks after the response has been sent to the browser.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
+        // Hanya lakukan auto-backup setelah response terkirim pada request GET admin
         if (auth()->check() && $request->isMethod('GET')) {
             try {
                 $this->performAutoBackup();
-            } catch (
-                \Throwable $e
-            ) {
-                // Abaikan kegagalan backup agar request utama tetap jalan.
+            } catch (\Throwable $e) {
+                // Abaikan kegagalan backup agar tidak mengganggu background cycle
             }
         }
-
-        return $next($request);
     }
 
     private function performAutoBackup()

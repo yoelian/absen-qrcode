@@ -111,8 +111,12 @@ class AttendanceService
             if ($attendance->check_in && !$attendance->check_out) {
                 // Berikan cooldown agar tidak langsung check-out secara tidak sengaja
                 $cooldownMinutes = (int) Setting::get('scan_cooldown_minutes', '1');
-                $checkInTime = Carbon::parse($attendance->check_in);
-                if (abs(Carbon::parse($time)->diffInSeconds($checkInTime)) < ($cooldownMinutes * 60)) {
+                $attDateStr = Carbon::parse($attendance->date)->format('Y-m-d');
+                $attTimeStr = Carbon::parse($attendance->check_in)->format('H:i:s');
+                $checkInDateTime = Carbon::parse("$attDateStr $attTimeStr");
+                $currentDateTime = Carbon::parse("$date $time");
+
+                if (abs($currentDateTime->diffInSeconds($checkInDateTime)) < ($cooldownMinutes * 60)) {
                     return [
                         'success' => false,
                         'employee' => $employee,
@@ -163,11 +167,18 @@ class AttendanceService
 
         // Cek data check-in aktif yang BELUM check-out
         // Untuk shift malam, check-out dilakukan keesokan harinya (cross-day)
-        // Kita cari data kehadiran terakhir dalam 18 jam terakhir yang belum memiliki check-out
+        // Kita cari data kehadiran terakhir yang belum memiliki check-out dalam 24 jam terakhir
         $activeAttendance = Attendance::where('employee_id', $employee->id)
             ->whereNull('check_out')
-            ->where('created_at', '>=', $now->copy()->subHours(18))
+            ->orderBy('id', 'desc')
             ->first();
+
+        if ($activeAttendance) {
+            $checkInDateTime = Carbon::parse($activeAttendance->date . ' ' . $activeAttendance->check_in);
+            if (abs($now->diffInHours($checkInDateTime)) > 24) {
+                $activeAttendance = null; // Shift sudah kadaluarsa (lebih dari 24 jam)
+            }
+        }
 
         if (!$activeAttendance) {
             // Logika Check-In Baru
@@ -235,9 +246,12 @@ class AttendanceService
 
         // Logika Check-Out (Jika ada data check-in aktif yang belum check-out)
         // Berikan cooldown agar tidak ter-check-out secara tidak sengaja saat scan pertama kali
-        // Menggunakan field check_in yang murni berisi "H:i:s" agar tidak ada masalah konversi zona waktu
         $cooldownMinutes = (int) Setting::get('scan_cooldown_minutes', '1');
-        if (abs(Carbon::parse($timeStr)->diffInSeconds(Carbon::parse($activeAttendance->check_in))) < ($cooldownMinutes * 60)) {
+        $attDateStr = Carbon::parse($activeAttendance->date)->format('Y-m-d');
+        $attTimeStr = Carbon::parse($activeAttendance->check_in)->format('H:i:s');
+        $checkInDateTime = Carbon::parse("$attDateStr $attTimeStr");
+
+        if (abs($now->diffInSeconds($checkInDateTime)) < ($cooldownMinutes * 60)) {
             return [
                 'success' => false,
                 'employee' => $employee,

@@ -35,64 +35,54 @@ class LeaveController extends Controller
 
         $employee = Employee::with('category')->findOrFail($request->employee_id);
 
-        // Simpan riwayat pengajuan
-        Leave::create($request->all());
+        \Illuminate\Support\Facades\DB::transaction(function () use ($request, $employee) {
+            // Simpan riwayat pengajuan dengan data terfilter
+            Leave::create($request->only(['employee_id', 'type', 'start_date', 'end_date', 'reason']));
 
-        // Lakukan looping dari start_date sampai end_date
-        $startDate = Carbon::parse($request->start_date);
-        $endDate = Carbon::parse($request->end_date);
-        
-        $isSecurity = ($employee->category && $employee->category->code === 'SEC');
+            // Lakukan looping dari start_date sampai end_date
+            $startDate = Carbon::parse($request->start_date);
+            $endDate = Carbon::parse($request->end_date);
 
-        // Loop setiap hari
-        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-            $dateStr = $date->toDateString();
-            $isWeekend = $date->isWeekend();
+            for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+                $dateStr = $date->toDateString();
 
-            // Sesuai konfirmasi user: Izin/Sakit/Cuti tetap diisi meskipun hari libur (Sabtu/Minggu)
-            // Jadi kita update/buat record attendance tanpa me-skip weekend
-            
-            $attendance = Attendance::where('employee_id', $employee->id)->where('date', $dateStr)->first();
-
-            if ($attendance) {
-                $attendance->update([
-                    'status' => $request->type,
-                    'check_in' => null,
-                    'check_out' => null
-                ]);
-            } else {
-                Attendance::create([
-                    'employee_id' => $employee->id,
-                    'date' => $dateStr,
-                    'status' => $request->type,
-                    'check_in' => null,
-                    'check_out' => null
-                ]);
+                Attendance::updateOrCreate(
+                    [
+                        'employee_id' => $employee->id,
+                        'date' => $dateStr,
+                    ],
+                    [
+                        'status' => $request->type,
+                        'check_in' => null,
+                        'check_out' => null,
+                    ]
+                );
             }
-        }
+        });
 
         return redirect()->route('leaves.index')->with('success', 'Pengajuan ' . ucfirst($request->type) . ' berhasil disimpan dan rekap absensi telah diperbarui.');
     }
 
     public function destroy(Leave $leaf) // $leaf is singular of leaves
     {
-        // 1. Bersihkan kalender absensi di rentang tanggal pengajuan
-        $startDate = Carbon::parse($leaf->start_date);
-        $endDate = Carbon::parse($leaf->end_date);
-        
-        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-            $dateStr = $date->toDateString();
+        \Illuminate\Support\Facades\DB::transaction(function () use ($leaf) {
+            // 1. Bersihkan kalender absensi di rentang tanggal pengajuan
+            $startDate = Carbon::parse($leaf->start_date);
+            $endDate = Carbon::parse($leaf->end_date);
             
-            // Hapus data kehadiran JIKA statusnya sesuai dengan tipe izin/sakit/cuti/dl ini
-            // (Mencegah terhapusnya absen 'hadir' jika sudah diganti manual oleh admin)
-            Attendance::where('employee_id', $leaf->employee_id)
-                ->where('date', $dateStr)
-                ->where('status', $leaf->type)
-                ->delete();
-        }
+            for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+                $dateStr = $date->toDateString();
+                
+                // Hapus data kehadiran JIKA statusnya sesuai dengan tipe izin/sakit/cuti/dl ini
+                Attendance::where('employee_id', $leaf->employee_id)
+                    ->where('date', $dateStr)
+                    ->where('status', $leaf->type)
+                    ->delete();
+            }
 
-        // 2. Hapus riwayat pengajuan itu sendiri
-        $leaf->delete();
+            // 2. Hapus riwayat pengajuan itu sendiri
+            $leaf->delete();
+        });
         
         return redirect()->route('leaves.index')->with('success', 'Riwayat pengajuan berhasil dihapus dan data kalender telah dibersihkan otomatis.');
     }

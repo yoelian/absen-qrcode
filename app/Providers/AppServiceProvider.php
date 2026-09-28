@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
                     config(['app.timezone' => $tz]);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Abaikan jika database belum siap (misal saat migrasi awal)
         }
     }

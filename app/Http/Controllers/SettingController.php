@@ -235,7 +235,7 @@ class SettingController extends Controller
             return strtotime($b['date']) - strtotime($a['date']);
         });
 
-        $selectedFile = $request->get('file');
+        $selectedFile = $request->filled('file') ? basename($request->get('file')) : null;
         $logContent = '';
         $currentFile = '';
 
@@ -243,7 +243,7 @@ class SettingController extends Controller
             $currentFile = $selectedFile ?: $logFiles[0]['name'];
             $filePath = $logsPath . '/' . $currentFile;
 
-            if (file_exists($filePath)) {
+            if (file_exists($filePath) && str_ends_with($currentFile, '.log')) {
                 $size = filesize($filePath);
                 $fileHandle = fopen($filePath, 'r');
                 // Read last 2MB max to prevent memory crash
@@ -266,10 +266,10 @@ class SettingController extends Controller
 
     public function clearLogs(Request $request)
     {
-        $filename = $request->input('file');
+        $filename = basename((string)$request->input('file'));
         $filePath = storage_path('logs/' . $filename);
 
-        if (file_exists($filePath) && str_ends_with($filename, '.log')) {
+        if (!empty($filename) && file_exists($filePath) && str_ends_with($filename, '.log')) {
             file_put_contents($filePath, ''); // Empty the file safely
             return redirect()->route('settings.logs', ['file' => $filename])->with('success', 'Log berhasil dibersihkan!');
         }
