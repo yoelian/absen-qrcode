@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mb-4 d-flex justify-content-between align-items-center">
+<div class="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
     <div>
-        <h3 class="text-dark fw-bold"><i class="bi bi-file-earmark-bar-graph-fill me-2 text-primary"></i>Laporan Kehadiran Grid</h3>
-        <p class="text-muted m-0">Tabel dinamis absensi harian, mingguan, hingga bulanan.</p>
+        <h3 class="text-dark fw-bold mb-1"><i class="bi bi-file-earmark-bar-graph-fill me-2 text-primary"></i>Laporan Kehadiran Grid</h3>
+        <p class="text-muted m-0" style="font-size: 0.9rem;">Rekapitulasi dinamis absensi harian, mingguan, hingga bulanan.</p>
     </div>
     
     <!-- Tombol Cetak dari Form -->
-    <div class="d-flex gap-2">
-        <button type="submit" form="filterForm" name="format" value="pdf" class="btn btn-danger fw-semibold px-4 rounded-3 shadow-sm d-flex align-items-center" formaction="{{ route('reports.generate') }}">
-            <i class="bi bi-file-earmark-pdf-fill me-2"></i>Cetak PDF
+    <div class="d-flex flex-wrap gap-2">
+        <button type="submit" form="filterForm" name="format" value="pdf" class="btn btn-outline-danger fw-semibold px-4 py-2 rounded-pill shadow-sm d-flex align-items-center gap-1" formaction="{{ route('reports.generate') }}">
+            <i class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF
         </button>
-        <button type="submit" form="filterForm" name="format" value="excel" class="btn btn-success fw-semibold px-4 rounded-3 shadow-sm d-flex align-items-center" formaction="{{ route('reports.generate') }}">
-            <i class="bi bi-file-earmark-excel-fill me-2"></i>Cetak Excel
+        <button type="submit" form="filterForm" name="format" value="excel" class="btn btn-success fw-semibold px-4 py-2 rounded-pill shadow-sm d-flex align-items-center gap-1" formaction="{{ route('reports.generate') }}">
+            <i class="bi bi-file-earmark-excel-fill"></i> Ekspor Excel
         </button>
     </div>
 </div>

@@ -1042,5 +1042,17 @@
     "seen": 1790569890.201739,
     "ast_hash": "841a3f1b1cc42482d0b9d7fe25506a04",
     "semantic_hash": ""
+  },
+  ".agents/rules/taste.md": {
+    "mtime": 1790571050.0292509,
+    "seen": 1790571092.7495143,
+    "ast_hash": "46cf753071f71bdc1dcbef1d0ab0fa12",
+    "semantic_hash": ""
+  },
+  ".agents/skills/taste/SKILL.md": {
+    "mtime": 1790571062.436894,
+    "seen": 1790571092.7495167,
+    "ast_hash": "6fd39c89f17d04dbc70e35d10c1e56a5",
+    "semantic_hash": ""
   }
 }

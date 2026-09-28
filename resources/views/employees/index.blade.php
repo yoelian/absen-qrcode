@@ -1,30 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark fw-bold"><i class="bi bi-people-fill me-2 text-primary"></i>Daftar Siswa & Staff</h3>
-    <div class="d-flex gap-2">
-        <button type="button" class="btn btn-success px-3 py-2 rounded-3" data-bs-toggle="modal" data-bs-target="#importModal">
-            <i class="bi bi-file-earmark-excel me-1"></i>Import Excel
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h3 class="text-dark fw-bold mb-1"><i class="bi bi-people-fill me-2 text-primary"></i>Daftar Siswa & Staff</h3>
+        <p class="text-muted m-0" style="font-size: 0.9rem;">Kelola data induk siswa, guru, staff, dan kartu identitas presensi.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-outline-success px-3 py-2 rounded-pill fw-semibold shadow-sm d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#importModal">
+            <i class="bi bi-file-earmark-excel"></i> Import Excel
         </button>
-        <a href="{{ route('employees.create') }}" class="btn btn-primary px-4 py-2 rounded-3"><i class="bi bi-plus-lg me-1"></i>Tambah Baru</a>
+        <a href="{{ route('employees.create') }}" class="btn btn-primary px-4 py-2 rounded-pill fw-bold shadow-sm d-flex align-items-center gap-1">
+            <i class="bi bi-person-plus-fill"></i> Tambah Baru
+        </a>
     </div>
 </div>
-
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show rounded-3 border-0 mb-4" role="alert"
-        style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#065f46;box-shadow:0 4px 15px rgba(16,185,129,.15);">
-        <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
-@if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show rounded-3 border-0 mb-4" role="alert"
-        style="background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;box-shadow:0 4px 15px rgba(239,68,68,.15);">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
 
 <div class="custom-card">
     <!-- Filter dan Search -->

@@ -1,11 +1,11 @@
 # Graph Report - absen-qrcode  (2026-09-28)
 
 ## Corpus Check
-- 172 files · ~76,936 words
+- 174 files · ~77,917 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2916 nodes · 6903 edges · 204 communities (141 shown, 63 thin omitted)
+- 2930 nodes · 6915 edges · 215 communities (145 shown, 70 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 162 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -14,13 +14,14 @@
 - chart.min.js
 - a
 - n
-- xt
+- cn
 - f
 - rt
-- Controller
-- l
 - Illuminate\Http\Request
+- .isHorizontal
+- Employee
 - cs
+- j
 - .append
 - ho
 - AttendanceExport.php
@@ -28,13 +29,13 @@
 - updateElements
 - .toString
 - _
-- nt
-- Jn
+- .decodeRow
+- W
 - .getContext
 - Category
 - .getHeight
-- r
-- .get
+- b
+- pr
 - devDependencies
 - .hide
 - p
@@ -42,64 +43,66 @@
 - ht
 - .parseInformation
 - ke
-- AttendanceQualityTest
+- Carbon
 - gr
 - .substring
-- b
-- s
+- ii
+- jt
 - xt
 - ze
 - qi
 - me
-- cr
-- xe
 - .encode
-- w
+- .arraycopy
+- wr
+- .decodeRow
 - sn
 - remove
 - ie
 - sr
 - LoginRequest
 - Ks
-- .getSize
+- .get
 - Bt
 - et
 - .getX
-- N
+- le
 - je
 - Q
 - ae
-- ve
+- .decode
 - e
 - User
 - EmployeeImport
 - scripts
 - Es
 - m
-- .decode
+- be
 - .decode
 - ee
-- pe
-- .decodeRow
+- .getCount
+- N
 - T
 - composer.json
 - qn
+- Illuminate\Database\Eloquent\Model
 - st
 - ce
 - Qe
-- .decode
-- i
-- j
-- .decodeRow
-- tt
+- .runEuclideanAlgorithm
+- s
+- or
+- So
+- TestCase
 - .runEuclideanAlgorithm
 - User.php
 - README.md
-- we
+- Jn
 - require
 - bootstrap/app.php
 - it
 - dev
+- fe
 - O
 - ar
 - AutoBackupMiddleware.php
@@ -107,27 +110,38 @@
 - hs
 - Nr
 - setup
-- Q
-- ot
+- Taste: Anti-Slop Frontend & UI/UX Design System
+- ui
+- ne
 - AppServiceProvider
 - config
 - extra
-- x
+- lt
 - Template_Import_Siswa_Staff_23baaeb7.md
 - NativeAppServiceProvider
 - rules/graphify.md
-- oe
+- r
 - workflows/graphify.md
 - psr-4
 - logging.php
 - bt
-- se
-- .getNotFoundInstance
-- gt
+- SettingController
+- sn
+- EmailVerificationTest.php
 - ExampleTest
 - profile/edit.blade.php
+- PasswordResetTest
+- Illuminate\View\Component
+- dr
 - excel.php
 - console.php
+- y
+- Illuminate\Support\Facades\Hash
+- AuthenticationTest
+- st
+- .encode
+- PasswordConfirmationTest
+- taste.md
 
 ## God Nodes (most connected - your core abstractions)
 1. `tn` - 124 edges
@@ -156,51 +170,55 @@
 ## Import Cycles
 - None detected.
 
-## Communities (204 total, 63 thin omitted)
+## Communities (215 total, 70 thin omitted)
 
 ### Community 0 - "tn"
 Cohesion: 0.04
-Nodes (17): aa(), addBox(), addElements(), afterDatasetsUpdate(), configure(), d(), Di(), generateLabels() (+9 more)
+Nodes (17): addBox(), addElements(), afterDatasetsUpdate(), configure(), d(), Di(), generateLabels(), Ie() (+9 more)
 
 ### Community 1 - "chart.min.js"
 Cohesion: 0.03
-Nodes (51): ai(), at(), b(), beforeDatasetDraw(), beforeDatasetsDraw(), beforeDraw(), beforeUpdate(), buildTicks() (+43 more)
+Nodes (49): ai(), at(), b(), Be(), beforeDatasetDraw(), beforeDatasetsDraw(), beforeDraw(), beforeUpdate() (+41 more)
 
 ### Community 2 - "a"
 Cohesion: 0.07
-Nodes (37): a(), average(), beforeLayout(), dataset(), draw(), eo(), et(), f() (+29 more)
+Nodes (44): a(), buildTicks(), da(), determineDataLimits(), draw(), eo(), f(), fo() (+36 more)
 
 ### Community 3 - "n"
-Cohesion: 0.06
-Nodes (17): e(), ei(), en, fn(), gi(), gn(), je(), mi() (+9 more)
+Cohesion: 0.05
+Nodes (15): e(), ei(), en, fn(), gn(), je(), n(), pi() (+7 more)
 
-### Community 4 - "xt"
+### Community 4 - "cn"
+Cohesion: 0.10
+Nodes (7): cn, an(), as(), ln(), on, rs(), ts()
+
+### Community 7 - "Illuminate\Http\Request"
+Cohesion: 0.10
+Nodes (23): AuthenticatedSessionController, ConfirmablePasswordController, EmailVerificationNotificationController, EmailVerificationPromptController, NewPasswordController, PasswordController, PasswordResetLinkController, RegisteredUserController (+15 more)
+
+### Community 8 - ".isHorizontal"
 Cohesion: 0.07
-Nodes (8): cn, an(), as(), ln(), on, rs(), ts(), xt
+Nodes (17): afterDraw(), afterEvent(), afterUpdate(), Ba(), ki(), lo(), Oi(), po() (+9 more)
 
-### Community 7 - "Controller"
-Cohesion: 0.07
-Nodes (26): AuthenticatedSessionController, ConfirmablePasswordController, EmailVerificationNotificationController, EmailVerificationPromptController, NewPasswordController, PasswordController, PasswordResetLinkController, RegisteredUserController (+18 more)
-
-### Community 8 - "l"
-Cohesion: 0.07
-Nodes (21): afterDraw(), afterEvent(), afterUpdate(), Ba(), l(), ki(), lo(), Oi() (+13 more)
-
-### Community 9 - "Illuminate\Http\Request"
+### Community 9 - "Employee"
 Cohesion: 0.09
-Nodes (20): AttendanceController, DashboardController, EmployeeController, LeaveController, ReportController, StatisticController, Attendance, Employee (+12 more)
+Nodes (18): DashboardController, EmployeeController, ReportController, StatisticController, Attendance, Employee, Setting, AttendanceService (+10 more)
 
 ### Community 10 - "cs"
 Cohesion: 0.08
 Nodes (5): cs, us, es(), is(), ns()
 
+### Community 11 - "j"
+Cohesion: 0.11
+Nodes (3): d, gt, j
+
 ### Community 12 - ".append"
-Cohesion: 0.18
+Cohesion: 0.16
 Nodes (3): he, te, ue
 
 ### Community 13 - "ho"
-Cohesion: 0.10
-Nodes (10): buildLookupTable(), _generate(), getDecimalForValue(), _getTimestampsForTable(), getValueForPixel(), ho(), initOffsets(), jo() (+2 more)
+Cohesion: 0.08
+Nodes (13): beforeLayout(), buildLookupTable(), _generate(), getDecimalForValue(), _getTimestampsForTable(), getValueForPixel(), Go(), ho() (+5 more)
 
 ### Community 14 - "AttendanceExport.php"
 Cohesion: 0.11
@@ -211,68 +229,68 @@ Cohesion: 0.08
 Nodes (3): Illuminate\Database\Migrations\Migration, Illuminate\Database\Schema\Blueprint, Illuminate\Support\Facades\Schema
 
 ### Community 16 - "updateElements"
-Cohesion: 0.07
-Nodes (25): Ae(), Bn(), _calculateBarIndexPixels(), _calculateBarValuePixels(), da(), _getAxis(), _getAxisCount(), getBasePixel() (+17 more)
-
-### Community 17 - ".toString"
-Cohesion: 0.10
-Nodes (3): er, ir(), or
+Cohesion: 0.13
+Nodes (14): aa(), Ae(), Bn(), _calculateBarIndexPixels(), _calculateBarValuePixels(), _getAxis(), _getAxisCount(), getFirstScaleIdForIndexAxis() (+6 more)
 
 ### Community 18 - "_"
-Cohesion: 0.08
-Nodes (10): _, a, c, g, K, s, st, tr (+2 more)
+Cohesion: 0.10
+Nodes (8): _, a, c, g, K, oe, s, tr
 
-### Community 20 - "Jn"
-Cohesion: 0.08
-Nodes (3): H, Jn, W
+### Community 19 - ".decodeRow"
+Cohesion: 0.09
+Nodes (3): dt, nt, x
 
 ### Community 21 - ".getContext"
-Cohesion: 0.11
-Nodes (12): ao(), Bi(), Ci(), co(), cs, Do(), Fi(), inXRange() (+4 more)
+Cohesion: 0.07
+Nodes (22): ao(), average(), Bi(), Ci(), co(), cs, dataset(), Do() (+14 more)
 
 ### Community 22 - "Category"
-Cohesion: 0.06
-Nodes (16): CategoryController, PositionController, Category, Leave, Position, DatabaseSeeder, DummyAttendanceSeeder, DummyEmployeeSeeder (+8 more)
+Cohesion: 0.08
+Nodes (12): CategoryController, PositionController, Category, Position, DatabaseSeeder, DummyAttendanceSeeder, DummyEmployeeSeeder, Illuminate\Database\Eloquent\Relations\HasMany (+4 more)
 
 ### Community 26 - "devDependencies"
 Cohesion: 0.06
 Nodes (31): alpinejs, autoprefixer, chart.js, concurrently, html5-qrcode, laravel-vite-plugin, dependencies, chart.js (+23 more)
 
 ### Community 27 - ".hide"
-Cohesion: 0.12
-Nodes (6): ao, io(), no(), oo, Us(), Ys()
+Cohesion: 0.08
+Nodes (7): ao, Q, io(), no(), oo, Us(), Ys()
 
 ### Community 29 - "bootstrap.bundle.min.js"
-Cohesion: 0.06
-Nodes (50): Ae(), be(), Ce(), D(), De(), di(), $e(), Ee() (+42 more)
-
-### Community 30 - "ht"
-Cohesion: 0.12
-Nodes (3): ht, jt, kt
+Cohesion: 0.11
+Nodes (21): be(), D(), ei(), getDataAttributes(), I(), Ie(), j(), k() (+13 more)
 
 ### Community 31 - ".parseInformation"
 Cohesion: 0.11
 Nodes (5): Qt, vt, xt, yt, zt
 
-### Community 33 - "AttendanceQualityTest"
-Cohesion: 0.08
-Nodes (3): SettingController, Illuminate\Support\Facades\Storage, AttendanceQualityTest
+### Community 33 - "Carbon"
+Cohesion: 0.13
+Nodes (3): AttendanceController, Carbon, AttendanceQualityTest
 
 ### Community 34 - "gr"
-Cohesion: 0.15
+Cohesion: 0.14
 Nodes (4): br(), gr, mr, Vr
 
-### Community 37 - "s"
-Cohesion: 0.05
-Nodes (28): ri(), Be(), bo, Bt(), color(), Ee(), Ft(), getRange() (+20 more)
+### Community 36 - "ii"
+Cohesion: 0.23
+Nodes (25): Ae(), Ce(), De(), di(), $e(), Ee(), fe(), ge() (+17 more)
+
+### Community 37 - "jt"
+Cohesion: 0.06
+Nodes (18): ri(), Bt(), color(), Ee(), Ft(), Gt(), It(), jt() (+10 more)
+
+### Community 45 - ".decodeRow"
+Cohesion: 0.07
+Nodes (3): ct, mt, w
 
 ### Community 47 - "remove"
-Cohesion: 0.12
-Nodes (8): d(), on(), remove(), cn(), hn(), Nn(), un(), wn()
+Cohesion: 0.14
+Nodes (6): d(), on(), remove(), Nn(), Pn(), wn()
 
 ### Community 50 - "LoginRequest"
-Cohesion: 0.17
-Nodes (7): LoginRequest, ProfileUpdateRequest, Illuminate\Auth\Events\Lockout, Illuminate\Contracts\Validation\ValidationRule, Illuminate\Foundation\Http\FormRequest, Illuminate\Support\Facades\RateLimiter, Illuminate\Validation\Rule
+Cohesion: 0.13
+Nodes (9): LoginRequest, ProfileUpdateRequest, Illuminate\Auth\Events\Lockout, Illuminate\Contracts\Validation\ValidationRule, Illuminate\Foundation\Http\FormRequest, Illuminate\Support\Facades\RateLimiter, Illuminate\Support\Str, Illuminate\Validation\Rule (+1 more)
 
 ### Community 51 - "Ks"
 Cohesion: 0.21
@@ -282,17 +300,9 @@ Nodes (3): getElementFromSelector(), Ks, Fs()
 Cohesion: 0.15
 Nodes (3): Bt, getSelectorFromElement(), Y
 
-### Community 55 - ".getX"
-Cohesion: 0.05
-Nodes (6): be, de, fe, ft, lt, re
-
-### Community 56 - "N"
-Cohesion: 0.07
-Nodes (3): ge, le, N
-
 ### Community 62 - "User"
-Cohesion: 0.06
-Nodes (21): UserController, User, Illuminate\Auth\Events\Verified, Illuminate\Auth\Notifications\ResetPassword, Illuminate\Foundation\Auth\User, Illuminate\Foundation\Testing\RefreshDatabase, Illuminate\Foundation\Testing\TestCase, Illuminate\Support\Facades\Event (+13 more)
+Cohesion: 0.19
+Nodes (4): UserController, User, Illuminate\Foundation\Auth\User, ProfileTest
 
 ### Community 63 - "EmployeeImport"
 Cohesion: 0.21
@@ -303,24 +313,36 @@ Cohesion: 0.13
 Nodes (15): scripts, post-autoload-dump, post-create-project-cmd, post-update-cmd, pre-package-uninstall, test, Illuminate\\Foundation\\ComposerScripts::postAutoloadDump, Illuminate\\Foundation\\ComposerScripts::prePackageUninstall (+7 more)
 
 ### Community 68 - ".decode"
-Cohesion: 0.19
+Cohesion: 0.21
 Nodes (3): constructor(), I, lr
-
-### Community 71 - ".decodeRow"
-Cohesion: 0.12
-Nodes (3): ct, mt, pt
 
 ### Community 73 - "composer.json"
 Cohesion: 0.14
 Nodes (13): autoload-dev, psr-4, description, keywords, license, minimum-stability, name, prefer-stable (+5 more)
 
-### Community 80 - "i"
-Cohesion: 0.08
-Nodes (18): bs(), ce(), ct(), de, dt(), ge(), he(), ks() (+10 more)
+### Community 75 - "Illuminate\Database\Eloquent\Model"
+Cohesion: 0.15
+Nodes (5): LeaveController, Leave, Illuminate\Database\Eloquent\Factories\HasFactory, Illuminate\Database\Eloquent\Model, Illuminate\Database\Eloquent\Relations\BelongsTo
+
+### Community 80 - "s"
+Cohesion: 0.07
+Nodes (25): bs(), ce(), ct(), de, dt(), et(), ge(), getRange() (+17 more)
+
+### Community 81 - "or"
+Cohesion: 0.14
+Nodes (3): ir(), or, rr()
+
+### Community 82 - "So"
+Cohesion: 0.12
+Nodes (5): bo, H(), j(), So, xo()
+
+### Community 83 - "TestCase"
+Cohesion: 0.21
+Nodes (6): Illuminate\Foundation\Testing\RefreshDatabase, Illuminate\Foundation\Testing\TestCase, RegistrationTest, EmployeeTemplateDownloadTest, ExampleTest, TestCase
 
 ### Community 85 - "User.php"
-Cohesion: 0.14
-Nodes (9): UserFactory, Illuminate\Database\Eloquent\Attributes\Fillable, Illuminate\Database\Eloquent\Attributes\Hidden, Illuminate\Database\Eloquent\Factories\Factory, Illuminate\Notifications\Notifiable, Illuminate\Support\Str, Pdo\Mysql, Spatie\Permission\Traits\HasRoles (+1 more)
+Cohesion: 0.22
+Nodes (7): UserFactory, Illuminate\Database\Eloquent\Attributes\Fillable, Illuminate\Database\Eloquent\Attributes\Hidden, Illuminate\Database\Eloquent\Factories\Factory, Illuminate\Notifications\Notifiable, Spatie\Permission\Traits\HasRoles, static
 
 ### Community 86 - "README.md"
 Cohesion: 0.25
@@ -350,6 +372,14 @@ Nodes (9): require-dev, fakerphp/faker, laravel/breeze, laravel/pail, laravel/pa
 Cohesion: 0.25
 Nodes (8): post-root-package-install, setup, composer install, npm install --ignore-scripts, npm run build, @php artisan key:generate, @php artisan migrate --force, @php -r \"file_exists('.env') || copy('.env.example', '.env');\
 
+### Community 101 - "Taste: Anti-Slop Frontend & UI/UX Design System"
+Cohesion: 0.17
+Nodes (11): 0.A Signals to Read, 0.B Anti-Default Discipline, 0. BRIEF INFERENCE (Read the Room Before Anything Else), 1. THE THREE DIALS (Calibration Matrix), 2. TYPOGRAPHY & VISUAL HIERARCHY, 3. COLOR PALETTES & ACCENTS, 4. MATERIALITY, CARDS & ELEVATION, 5. FORMS, TABLES & DATA DENSITY (+3 more)
+
+### Community 103 - "ne"
+Cohesion: 0.08
+Nodes (3): ne, ot, re
+
 ### Community 104 - "AppServiceProvider"
 Cohesion: 0.33
 Nodes (3): AppServiceProvider, Illuminate\Pagination\Paginator, Illuminate\Support\ServiceProvider
@@ -374,29 +404,41 @@ Nodes (5): autoload, psr-4, App\\, Database\\Factories\\, Database\\Seeders\\
 Cohesion: 0.40
 Nodes (4): Monolog\Handler\NullHandler, Monolog\Handler\StreamHandler, Monolog\Handler\SyslogUdpHandler, Monolog\Processor\PsrLogMessageProcessor
 
+### Community 118 - "EmailVerificationTest.php"
+Cohesion: 0.25
+Nodes (4): Illuminate\Auth\Events\Verified, Illuminate\Support\Facades\Event, Illuminate\Support\Facades\URL, EmailVerificationTest
+
 ### Community 120 - "profile/edit.blade.php"
 Cohesion: 0.50
 Nodes (3): profile.partials.delete-user-form, profile.partials.update-password-form, profile.partials.update-profile-information-form
 
+### Community 121 - "PasswordResetTest"
+Cohesion: 0.25
+Nodes (3): Illuminate\Auth\Notifications\ResetPassword, Illuminate\Support\Facades\Notification, PasswordResetTest
+
+### Community 122 - "Illuminate\View\Component"
+Cohesion: 0.38
+Nodes (3): AppLayout, GuestLayout, Illuminate\View\Component
+
 ## Knowledge Gaps
-- **84 isolated node(s):** `$schema`, `name`, `type`, `description`, `laravel` (+79 more)
+- **93 isolated node(s):** `$schema`, `name`, `type`, `description`, `laravel` (+88 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **63 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **70 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `_` connect `_` to `f`, `rt`, `.append`, `.toString`, `nt`, `.getHeight`, `r`, `.get`, `p`, `ht`, `.parseInformation`, `ke`, `gr`, `.substring`, `b`, `ze`, `me`, `cr`, `xe`, `.encode`, `w`, `ie`, `sr`, `.getSize`, `et`, `.getX`, `N`, `je`, `Q`, `ae`, `ve`, `e`, `m`, `.decode`, `.decode`, `ee`, `pe`, `.decodeRow`, `T`, `ce`, `Qe`, `.decode`, `j`, `.decodeRow`, `tt`, `.runEuclideanAlgorithm`, `we`, `it`, `O`, `ar`, `Nr`, `ot`, `x`, `oe`, `bt`, `se`, `.getNotFoundInstance`, `gt`?**
-  _High betweenness centrality (0.315) - this node is a cross-community bridge._
-- **Why does `e()` connect `e` to `.decode`, `me`, `.encode`, `w`, `i`, `.toString`, `_`, `r`?**
-  _High betweenness centrality (0.214) - this node is a cross-community bridge._
-- **Why does `i()` connect `i` to `tn`, `chart.min.js`, `a`, `n`, `s`, `l`, `bt`, `.getContext`, `e`?**
-  _High betweenness centrality (0.211) - this node is a cross-community bridge._
+- **Why does `_` connect `_` to `f`, `rt`, `j`, `.append`, `.toString`, `.decodeRow`, `.getHeight`, `b`, `pr`, `p`, `ht`, `.parseInformation`, `ke`, `gr`, `.substring`, `ze`, `me`, `.encode`, `.arraycopy`, `wr`, `.decodeRow`, `ie`, `sr`, `.get`, `et`, `.getX`, `le`, `je`, `Q`, `ae`, `.decode`, `e`, `m`, `be`, `.decode`, `ee`, `.getCount`, `N`, `T`, `ce`, `Qe`, `.runEuclideanAlgorithm`, `y`, `or`, `st`, `.encode`, `.runEuclideanAlgorithm`, `it`, `fe`, `O`, `ar`, `Nr`, `ne`, `lt`, `r`, `bt`, `dr`?**
+  _High betweenness centrality (0.314) - this node is a cross-community bridge._
+- **Why does `e()` connect `e` to `.decode`, `f`, `.encode`, `.decodeRow`, `r`, `s`, `.toString`, `_`?**
+  _High betweenness centrality (0.213) - this node is a cross-community bridge._
+- **Why does `i()` connect `s` to `tn`, `chart.min.js`, `a`, `n`, `jt`, `.isHorizontal`, `bt`, `.getContext`, `e`?**
+  _High betweenness centrality (0.209) - this node is a cross-community bridge._
 - **What connects `$schema`, `name`, `type` to the rest of the system?**
-  _84 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _93 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `tn` be split into smaller, more focused modules?**
-  _Cohesion score 0.037416550225120325 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.036650731565985806 - nodes in this community are weakly interconnected._
 - **Should `chart.min.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.02779963283503803 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.029653780468871294 - nodes in this community are weakly interconnected._
 - **Should `a` be split into smaller, more focused modules?**
-  _Cohesion score 0.07184325108853411 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06526806526806526 - nodes in this community are weakly interconnected._

@@ -1,97 +1,105 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-end mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
-        <h3 class="text-dark fw-bold"><i class="bi bi-calendar2-check-fill me-2 text-primary"></i>Rekap Kehadiran</h3>
-        <p class="text-muted m-0">Memantau statistik dan detail absensi masuk dan pulang karyawan.</p>
+        <h3 class="text-dark fw-bold mb-1"><i class="bi bi-calendar2-check-fill me-2 text-primary"></i>Rekap Kehadiran</h3>
+        <p class="text-muted m-0" style="font-size: 0.9rem;">Pantau statistik dan rincian data absensi masuk dan pulang harian.</p>
     </div>
     <!-- Tab Navigasi -->
-    <div class="bg-white p-1 rounded-3 shadow-sm border" style="display: inline-flex;">
-        <a href="{{ route('attendances.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-2" style="transition:all 0.2s;">Harian</a>
-        <a href="{{ route('attendances.monthly') }}" class="btn btn-light text-muted px-4 py-2 fw-semibold rounded-2 border-0" style="transition:all 0.2s; background:transparent;">Bulanan</a>
+    <div class="bg-white p-1 rounded-pill shadow-sm border d-inline-flex" style="border-color: #e2e8f0;">
+        <a href="{{ route('attendances.index') }}" class="btn btn-primary btn-sm px-4 py-2 fw-bold rounded-pill shadow-sm">Harian</a>
+        <a href="{{ route('attendances.monthly') }}" class="btn btn-sm text-muted px-4 py-2 fw-semibold rounded-pill border-0" style="background: transparent;">Bulanan</a>
     </div>
 </div>
 
-<!-- Statistik Ringkasan -->
-<div class="row g-2 mb-4">
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-success bg-opacity-10 border-success border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-success m-0 fw-bold">Hadir / Tepat Waktu</h6>
-                </div>
-                <h3 class="text-success m-0 fw-bold">{{ $stats['hadir'] }}</h3>
+<!-- Statistik Ringkasan Modern Bento -->
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #10b981;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Hadir Tepat Waktu</span>
+                <h4 class="text-success fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['hadir'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <i class="bi bi-check-circle-fill fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-warning bg-opacity-10 border-warning border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-warning text-darken m-0 fw-bold" style="color: #d97706;">Terlambat</h6>
-                </div>
-                <h3 class="m-0 fw-bold" style="color: #d97706;">{{ $stats['terlambat'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #f59e0b;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Terlambat</span>
+                <h4 class="text-warning fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['terlambat'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <i class="bi bi-clock-history fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-primary bg-opacity-10 border-primary border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-primary m-0 fw-bold">Izin</h6>
-                </div>
-                <h3 class="text-primary m-0 fw-bold">{{ $stats['izin'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #0284c7;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Izin</span>
+                <h4 class="text-primary fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['izin'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(2, 132, 199, 0.1); color: #0284c7;">
+                <i class="bi bi-file-earmark-text fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-info bg-opacity-10 border-info border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-info text-darken m-0 fw-bold" style="color: #0369a1;">Sakit</h6>
-                </div>
-                <h3 class="m-0 fw-bold" style="color: #0369a1;">{{ $stats['sakit'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #06b6d4;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Sakit</span>
+                <h4 class="text-info fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['sakit'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(6, 182, 212, 0.1); color: #0891b2;">
+                <i class="bi bi-heart-pulse fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-secondary bg-opacity-10 border-secondary border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-secondary m-0 fw-bold">Cuti</h6>
-                </div>
-                <h3 class="text-secondary m-0 fw-bold">{{ $stats['cuti'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #8b5cf6;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Cuti</span>
+                <h4 class="text-purple fw-extrabold m-0 mt-1" style="font-weight: 800; color: #8b5cf6;">{{ $stats['cuti'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                <i class="bi bi-calendar-event fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-dark bg-opacity-10 border-dark border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-dark m-0 fw-bold">Dinas Luar</h6>
-                </div>
-                <h3 class="text-dark m-0 fw-bold">{{ $stats['dl'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #475569;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Dinas Luar</span>
+                <h4 class="text-dark fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['dl'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(71, 85, 105, 0.1); color: #475569;">
+                <i class="bi bi-briefcase fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-danger bg-opacity-10 border-danger border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-danger m-0 fw-bold">Alpa</h6>
-                </div>
-                <h3 class="text-danger m-0 fw-bold">{{ $stats['alpha'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #ef4444;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Alpa</span>
+                <h4 class="text-danger fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['alpha'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                <i class="bi bi-x-octagon-fill fs-5"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-6">
-        <div class="card bg-light border-secondary border-opacity-25 h-100">
-            <div class="card-body p-3 d-flex justify-content-between align-items-center">
-                <div>
-                    <h6 class="text-muted m-0 fw-bold">Belum Pulang</h6>
-                </div>
-                <h3 class="text-muted m-0 fw-bold">{{ $stats['belum_pulang'] }}</h3>
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card-modern h-100 p-3" style="border-left: 4px solid #94a3b8;">
+            <div>
+                <span class="text-muted text-uppercase fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">Belum Pulang</span>
+                <h4 class="text-secondary fw-extrabold m-0 mt-1" style="font-weight: 800;">{{ $stats['belum_pulang'] }}</h4>
+            </div>
+            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: rgba(148, 163, 184, 0.1); color: #64748b;">
+                <i class="bi bi-box-arrow-right fs-5"></i>
             </div>
         </div>
     </div>
