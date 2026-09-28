@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 
 // 1. Halaman Absensi Utama (Halaman Scan) - Terbuka secara publik/operator lokal
 Route::get('/', [AttendanceController::class, 'scanPage'])->name('scan');
+Route::get('/attendance/scan', [AttendanceController::class, 'scanPage'])->name('attendance.scan.page');
 Route::post('/attendance/scan', [AttendanceController::class, 'scan'])->name('attendance.scan');
 
 // 2. Proteksi Halaman Administrasi (Hanya Admin / Operator terautentikasi)

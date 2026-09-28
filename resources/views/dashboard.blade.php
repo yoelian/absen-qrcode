@@ -20,7 +20,7 @@
                     </p>
                 </div>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="{{ route('attendance.scan') }}" class="btn btn-light fw-bold px-3 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2" style="color: #0f172a;">
+                    <a href="{{ route('scan') }}" class="btn btn-light fw-bold px-3 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2" style="color: #0f172a;">
                         <i class="bi bi-qr-code-scan text-primary"></i>
                         <span>Buka Scanner</span>
                     </a>

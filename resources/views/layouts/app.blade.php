@@ -592,10 +592,10 @@
             </div>
 
             <div class="d-flex align-items-center gap-3">
-                <a href="{{ route('scan') }}" class="btn btn-sm btn-outline-primary d-none d-md-flex align-items-center gap-2 rounded-pill px-3 py-2 fw-semibold">
-                    <span class="live-pulse-badge p-0 px-1 border-0"><span class="pulse-dot"></span></span>
-                    <span>Buka Layar Scan</span>
-                </a>
+                <div class="live-pulse-badge d-none d-md-inline-flex">
+                    <span class="pulse-dot"></span>
+                    <span>System Ready</span>
+                </div>
 
                 <div class="d-flex align-items-center gap-2 border-start ps-3">
                     <div class="text-end d-none d-sm-block">

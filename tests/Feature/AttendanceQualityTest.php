@@ -295,4 +295,14 @@ class AttendanceQualityTest extends TestCase
         $response = $this->get('/avatar/../../.env');
         $response->assertRedirect(asset('images/default-avatar.png'));
     }
+
+    /** @test */
+    public function test_scan_page_routes_are_accessible()
+    {
+        $response1 = $this->get(route('scan'));
+        $response1->assertStatus(200);
+
+        $response2 = $this->get('/attendance/scan');
+        $response2->assertStatus(200);
+    }
 }
