@@ -416,6 +416,8 @@
         lastScannedCode = code;
         lastScanTime = currentTime;
 
+        if (typeof startProgressBar === 'function') startProgressBar();
+
         fetch('{{ route("attendance.scan") }}', {
             method: 'POST',
             headers: {
@@ -427,6 +429,7 @@
         })
         .then(res => res.json())
         .then(data => {
+            if (typeof finishProgressBar === 'function') finishProgressBar();
             if (data.success) {
                 showScanResult(data);
             } else {
@@ -435,6 +438,7 @@
             isProcessing = false; // Buka kunci untuk barcode LAIN
         })
         .catch(err => {
+            if (typeof finishProgressBar === 'function') finishProgressBar();
             showScanError({ message: "Gagal menghubungi server. Hubungi admin." });
             isProcessing = false; // Buka kunci untuk barcode LAIN
         });

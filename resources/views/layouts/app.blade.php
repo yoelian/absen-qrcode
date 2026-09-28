@@ -433,10 +433,94 @@
             color: #fff;
             box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
         }
+
+        /* ===== Sleek Modern Loading Bar & Feedback Styles ===== */
+        .global-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #38bdf8, #0284c7, #6366f1);
+            z-index: 99999;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .global-progress-bar.active {
+            opacity: 1;
+        }
+
+        /* Loading Overlay for heavy operations */
+        .global-loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 99998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .global-loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 32px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transform: scale(0.95);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .global-loading-overlay.show .loading-card {
+            transform: scale(1);
+        }
+
+        .spinner-custom {
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(2, 132, 199, 0.15);
+            border-top-color: #0284c7;
+            border-radius: 50%;
+            animation: spinCustom 0.7s linear infinite;
+        }
+
+        @keyframes spinCustom {
+            to { transform: rotate(360deg); }
+        }
     </style>
     @yield('styles')
 </head>
 <body>
+
+    <!-- Global Top Loading Progress Bar -->
+    <div id="globalProgressBar" class="global-progress-bar"></div>
+
+    <!-- Global Heavy Loading Overlay -->
+    <div id="globalLoadingOverlay" class="global-loading-overlay">
+        <div class="loading-card">
+            <div class="spinner-custom"></div>
+            <div>
+                <h6 class="m-0 fw-bold text-dark" id="loadingOverlayTitle">Memproses...</h6>
+                <p class="m-0 text-muted small" id="loadingOverlaySubtitle">Mohon tunggu sebentar...</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Sidebar Layout -->
     <aside class="sidebar">
@@ -723,6 +807,82 @@
             
             actionModal.show();
         }
+
+        // ===== GLOBAL PROGRESS BAR & LOADING SYSTEM =====
+        let progressInterval = null;
+        const progressBar = document.getElementById('globalProgressBar');
+
+        function startProgressBar() {
+            if (!progressBar) return;
+            clearInterval(progressInterval);
+            progressBar.classList.add('active');
+            progressBar.style.width = '20%';
+            
+            let width = 20;
+            progressInterval = setInterval(() => {
+                if (width < 88) {
+                    width += (90 - width) * 0.2;
+                    progressBar.style.width = width + '%';
+                }
+            }, 200);
+        }
+
+        function finishProgressBar() {
+            if (!progressBar) return;
+            clearInterval(progressInterval);
+            progressBar.style.width = '100%';
+            setTimeout(() => {
+                progressBar.classList.remove('active');
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                }, 300);
+            }, 200);
+        }
+
+        function showLoadingOverlay(title = 'Memproses...', subtitle = 'Mohon tunggu sebentar...') {
+            const overlay = document.getElementById('globalLoadingOverlay');
+            const titleEl = document.getElementById('loadingOverlayTitle');
+            const subEl = document.getElementById('loadingOverlaySubtitle');
+            if (titleEl) titleEl.innerText = title;
+            if (subEl) subEl.innerText = subtitle;
+            if (overlay) overlay.classList.add('show');
+            startProgressBar();
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('globalLoadingOverlay');
+            if (overlay) overlay.classList.remove('show');
+            finishProgressBar();
+        }
+
+        // Auto trigger progress bar on internal link clicks
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.href && !link.target && !link.getAttribute('download') && link.href.startsWith(window.location.origin) && !link.href.includes('#') && !link.getAttribute('onclick') && !e.ctrlKey && !e.metaKey) {
+                startProgressBar();
+            }
+        });
+
+        // Auto trigger progress bar and button loading on standard form submit
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            if (form.classList.contains('no-loading')) return;
+            startProgressBar();
+
+            const submitBtn = form.querySelector('button[type="submit"]:not(.no-spin)');
+            if (submitBtn && !submitBtn.disabled) {
+                setTimeout(() => {
+                    const originalWidth = submitBtn.offsetWidth;
+                    if (originalWidth > 0) submitBtn.style.minWidth = originalWidth + 'px';
+                    submitBtn.classList.add('disabled');
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Memproses...';
+                }, 10);
+            }
+        });
+
+        window.addEventListener('pageshow', function() {
+            finishProgressBar();
+        });
     </script>
     @yield('scripts')
 </body>

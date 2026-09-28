@@ -516,10 +516,10 @@
     "semantic_hash": "d1f356b2d716e926826a190d13183262"
   },
   "resources/views/attendance/index.blade.php": {
-    "mtime": 1790565110.7427225,
-    "seen": 1790565794.5254743,
-    "ast_hash": "2c3bf03693bfbd9b6c4e9e0bd5a2238e",
-    "semantic_hash": "2c3bf03693bfbd9b6c4e9e0bd5a2238e"
+    "mtime": 1790571352.037803,
+    "seen": 1790571476.9223409,
+    "ast_hash": "08cc3b78dd4e45d2a4d0a5676ad0be49",
+    "semantic_hash": ""
   },
   "resources/views/attendance/monthly.blade.php": {
     "mtime": 1790565110.7427225,
@@ -690,10 +690,10 @@
     "semantic_hash": "d683ef2119e516bf1c134c1fb44ba041"
   },
   "resources/views/employees/index.blade.php": {
-    "mtime": 1790565110.7531154,
-    "seen": 1790565794.5255313,
-    "ast_hash": "1c1493e227e865a9a1684d092b973dc5",
-    "semantic_hash": "1c1493e227e865a9a1684d092b973dc5"
+    "mtime": 1790571364.454988,
+    "seen": 1790571476.9224505,
+    "ast_hash": "e31e5a2fd1080da007ac7d4c038c16c6",
+    "semantic_hash": ""
   },
   "resources/views/employees/print_cards.blade.php": {
     "mtime": 1790565110.7531154,
@@ -792,10 +792,10 @@
     "semantic_hash": "4883b7f5825dbc645c1f5c00a5870f8e"
   },
   "resources/views/reports/index.blade.php": {
-    "mtime": 1790565110.7636144,
-    "seen": 1790565794.5255628,
-    "ast_hash": "b15109603fc9d45363870bbf087ef83c",
-    "semantic_hash": "b15109603fc9d45363870bbf087ef83c"
+    "mtime": 1790571437.0938904,
+    "seen": 1790571476.9225085,
+    "ast_hash": "efa9a3eb5e4b87c132509ae7e98a3e8c",
+    "semantic_hash": ""
   },
   "resources/views/reports/pdf.blade.php": {
     "mtime": 1790565110.7636144,
