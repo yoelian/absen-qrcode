@@ -1,107 +1,90 @@
 ---
 name: taste
-description: Anti-slop frontend & UI/UX design taste skill. Guides AI agents to produce high-agency, polished, non-templated user interfaces with calibrated typography, intentional color palettes, layout diversity, micro-interactions, responsive mechanics, and strict pre-flight visual quality checks.
+description: >-
+  Apply world-class design taste, aesthetic craftsmanship, and micro-interaction polish to frontend UI/UX development. Enforces modern design standards (Linear, Vercel, Apple, Stripe aesthetics) covering typography, spacing, color harmony, subtle motion, bento layouts, and tactile feedback. Use whenever designing, styling, or refining UI components, layouts, pages, or user experiences.
 ---
 
-# Taste: Anti-Slop Frontend & UI/UX Design System
+# 🎨 Taste: Aesthetic Craftsmanship & UI/UX Standards
 
-> Elevate UI/UX engineering beyond generic AI-generated templates. This skill provides explicit design judgment, layout variance, motion tuning, and strict anti-slop constraints.
-
----
-
-## 0. BRIEF INFERENCE (Read the Room Before Anything Else)
-
-Before touching code or tweaking styles, **infer the intentional design direction**:
-
-### 0.A Signals to Read
-1. **Page Context:** Landing page, management dashboard, data table, scan kiosk, public portal, or settings screen.
-2. **Vibe & Aesthetic Family:** Minimalist, calm, Linear-style, glassmorphic, enterprise B2B, modern consumer, dark tech, editorial.
-3. **Audience:** School staff & students, B2B stakeholders, general public, or mobile kiosk users.
-4. **Existing Brand Assets:** Logo, color accents, typography, icons. Redesigns build upon existing foundation, not discard it.
-5. **Accessibility & Contrast:** WCAG AA min contrast (4.5:1 for body, 3:1 for large text). Never light gray text on white.
-
-### 0.B Anti-Default Discipline
-- **Avoid:** Generic AI purple gradients, centered heroes over dark mesh, 3 identical white box cards, Inter+slate-900 cliché, and infinite loop jittery animations.
-- **Reach for:** Purposeful typography hierarchy, tactile interactive states, cohesive color palettes, intentional asymmetry, and smooth micro-interactions.
+This skill instills high-caliber **design taste**, visual refinement, and tactile polish into all software interfaces. It moves beyond "functional but bland" design into world-class digital craftsmanship inspired by the design languages of Linear, Apple, Stripe, and Vercel.
 
 ---
 
-## 1. THE THREE DIALS (Calibration Matrix)
+## 👁️ 1. Core Taste Principles
 
-* **`DESIGN_VARIANCE` (1 - 10):** 1 = Rigid Symmetry, 5 = Balanced Modern, 10 = Artsy Asymmetry.
-* **`MOTION_INTENSITY` (1 - 10):** 1 = Instant Static, 5 = Smooth Transitions (200-300ms), 10 = Cinematic Physics.
-* **`VISUAL_DENSITY` (1 - 10):** 1 = Airy Gallery, 5 = Modern Product UI, 10 = Dense Mission Control.
-
-### Dial Presets
-- **Dashboard / Admin Panel:** `VARIANCE: 5` | `MOTION: 4` | `DENSITY: 7`
-- **Kiosk / Fullscreen Scanner:** `VARIANCE: 6` | `MOTION: 6` | `DENSITY: 4`
-- **Landing / Auth Page:** `VARIANCE: 7` | `MOTION: 5` | `DENSITY: 3`
+*   **Subtlety Over Loudness:** Never use raw, aggressive primary colors, heavy black borders, or gaudy drop shadows. Use soft ambient shadows, delicate semi-transparent borders, and harmonious pastel accents.
+*   **Intentional Hierarchy:** Every screen must have a singular clear focal point. Secondary and tertiary elements should recede naturally without disappearing.
+*   **The 4pt / 8pt Spatial Rhythm:** Spacing is never arbitrary. Padding and margins adhere strictly to multiples of 4 or 8 (8px, 12px, 16px, 24px, 32px) to achieve consistent visual breathing room.
+*   **Tactile & Responsive:** Every interactive surface (buttons, cards, inputs) must communicate its state clearly through crisp hover, active-press, focus, and disabled transitions.
 
 ---
 
-## 2. TYPOGRAPHY & VISUAL HIERARCHY
+## 🔤 2. Typography & Numbers
 
-1. **Font Pairings:**
-   - Modern UI: `Outfit` / `Plus Jakarta Sans` / `Geist` (Headings) + `Inter` (Body).
-   - Monospace & Data: `JetBrains Mono` / `Fira Code` / `Geist Mono` for timecodes, metrics, and barcodes.
-2. **Hierarchy Rules:**
-   - Display / Page Titles: Bold, tight letter-spacing (`tracking-tight`), crisp contrast.
-   - Section Titles: Clear weight distinction (font-weight 700+), generous breathing room.
-   - Body & Helpers: Readable line-height (`1.5 - 1.6`), max width `65ch` for long text paragraphs.
-3. **Descender Clearance:** Always maintain line-height `1.1+` and padding on display text containing `g, j, p, q, y` so letters are never clipped.
-
----
-
-## 3. COLOR PALETTES & ACCENTS
-
-1. **Singular Accent Rule:**
-   - Pick 1 primary brand accent (e.g. Electric Sky Blue `#0284c7`, Emerald `#10b981`, Indigo `#6366f1`).
-   - Saturation < 85% for eye comfort in daily usage.
-2. **Neutral Foundations:**
-   - Light Theme: Crisp Slate/Zinc (`#f8fafc` background, `#ffffff` cards, `#e2e8f0` borders, `#0f172a` text).
-   - Dark Theme: Deep Slate (`#0f172a` background, `#1e293b` surface, `#334155` borders).
-3. **Status Colors (Consistent Meaning):**
-   - Success / On-time / Present: `#10b981` (Emerald)
-   - Warning / Late: `#f59e0b` (Amber)
-   - Danger / Absent / Error: `#ef4444` (Rose / Crimson)
-   - Info / Checkout / System: `#0284c7` (Sky Blue)
+1.  **Tabular Numbers for Data:**
+    *   Always enable `tabular-nums` (or use monospace fonts) for counters, monetary values, timestamps, and statistics tables so changing numbers do not jitter horizontally.
+2.  **Soft Contrast & Legibility:**
+    *   Avoid pure `#000000` text on pure `#ffffff`. Use refined deep slate tones:
+        *   Primary Text: `rgb(15, 23, 42)` / `#0f172a` (Slate 900)
+        *   Secondary Text: `rgb(71, 85, 105)` / `#475569` (Slate 600)
+        *   Muted / Metadata: `rgb(148, 163, 184)` / `#94a3b8` (Slate 400)
+3.  **Optical Kerning & Line Heights:**
+    *   Tighten letter-spacing slightly for large headings (`tracking-tight` or `-0.02em`).
+    *   Maintain comfortable line heights (`leading-relaxed` / `1.5 - 1.6`) for long-form reading.
 
 ---
 
-## 4. MATERIALITY, CARDS & ELEVATION
+## 🎨 3. Color Harmony & Surface Depth
 
-1. **Card Architecture:**
-   - Subtle borders (`1px solid rgba(226, 232, 240, 0.8)`) paired with soft multi-layer shadow (`0 10px 25px -5px rgba(15, 23, 42, 0.04)`).
-   - Consistent corner radiuses: `12px` for inputs/buttons, `20px - 24px` for main cards and modals.
-2. **Tactile Feedback & Interactive States:**
-   - `:hover`: Subtle lift (`translateY(-2px)` or `translateY(-3px)`) and soft shadow expansion.
-   - `:active`: Subtle press (`scale(0.98)` or `translateY(0px)`).
-   - `:focus-visible`: High-contrast 3px outline or glow ring with brand accent.
-3. **Empty States & Skeletons:**
-   - Never show blank white rectangles. Provide styled empty state illustrations/icons with actionable instructions.
-
----
-
-## 5. FORMS, TABLES & DATA DENSITY
-
-1. **Form Ergonomics:**
-   - Labels positioned ABOVE inputs with clear font-weight.
-   - Inputs formatted with clean padding (`10px 14px`), subtle border, and instant visual focus state.
-   - Inline feedback for validation with accessible contrast.
-2. **Table Excellence:**
-   - Sticky header with subtle background.
-   - Generous row padding (`12px - 16px`), vertical alignment centered.
-   - Meaningful badges (`HADIR`, `TERLAMBAT`, `ALPA`) formatted as rounded pills with tinted backgrounds.
-   - Clear pagination pills with active state indicators.
+1.  **Layered Surface Elevation:**
+    *   Background: Soft canvas (`#f8fafc` or `#f1f5f9`).
+    *   Cards / Containers: Pure white (`#ffffff`) with subtle hairline border: `1px solid rgba(0, 0, 0, 0.06)` or `border-slate-200/60`.
+    *   Ambient Shadows: Multi-layered soft ambient diffusion:
+        ```css
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+        ```
+2.  **Muted Pastel Status Badges:**
+    *   ❌ **Avoid:** Saturated neon green `#00ff00` or aggressive red `#ff0000`.
+    *   ✅ **Success:** Muted emerald bg `#ecfdf5`, text `#065f46`, border `#a7f3d0`.
+    *   ✅ **Warning:** Warm amber bg `#fffbeb`, text `#92400e`, border `#fde68a`.
+    *   ✅ **Error:** Gentle rose bg `#fff1f2`, text `#9f1239`, border `#fecdd3`.
+    *   ✅ **Neutral:** Clean slate bg `#f1f5f9`, text `#334155`, border `#e2e8f0`.
 
 ---
 
-## 6. PRE-FLIGHT UI/UX CHECKLIST
+## 🍱 4. Layout Architecture (Bento Grid)
 
-Before completing any frontend or UI task, verify:
-- [ ] **Contrast Check:** All text and button labels pass WCAG AA contrast against their backgrounds.
-- [ ] **Viewport Stability:** No unintended horizontal overflow (`overflow-x: hidden`).
-- [ ] **Responsive Test:** Layout collapses cleanly on mobile (`< 768px`) and scales on desktop (`>= 1200px`).
-- [ ] **No Redundant Clutter:** Navigation and action buttons are streamlined without duplicate intents.
-- [ ] **Micro-Interactions:** Hover, active, focus, loading, and error states are fully styled.
-- [ ] **Design Harmony:** Fonts, corner radii, and color accents are unified across all screens.
+1.  **Asymmetric Bento Cards:**
+    *   Group related features into modular bento cards with consistent rounded radii (`rounded-2xl` / 16px - 20px).
+    *   Anchor important metrics with large readable digits and micro-trend indicators (+3% this week).
+2.  **Refined Data Tables:**
+    *   Never use heavy grid borders between every cell.
+    *   Use soft subtle dividers (`border-b border-slate-100`).
+    *   Include subtle row hover highlighting (`hover:bg-slate-50/70 transition-colors`).
+    *   Align numbers right, text left, and status badges center.
+
+---
+
+## ⚡ 5. Micro-Interactions & Fluid Motion
+
+1.  **Tactile Button Feedback:**
+    *   Include active-press micro-compression: `active:scale-[0.98] transition-all duration-150`.
+    *   Smooth elevation rise on card hover: `hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 ease-out`.
+2.  **Zero Layout Thrashing (Layout Shift):**
+    *   Use skeleton placeholders during asynchronous loading that match the exact aspect ratio and dimensions of the incoming data.
+    *   Smooth progress indicators with custom easing (`cubic-bezier(0.16, 1, 0.3, 1)`).
+
+---
+
+## 🌸 6. Thoughtful Empty & Error States
+
+*   Never show a barren blank table or generic "No data found".
+*   Display a composed empty state:
+    *   A calm, minimalist illustration or badge icon.
+    *   A friendly, descriptive title explaining why it's empty.
+    *   A clear, prominent call-to-action button to create the first record.
+
+---
+
+## 📚 Supporting References
+*   [Taste UI Recipes & CSS Snippets](./references/recipes.md)
