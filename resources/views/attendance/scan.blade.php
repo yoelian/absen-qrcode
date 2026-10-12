@@ -159,8 +159,23 @@
                             <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(2, 132, 199, 0.1); color: #0284c7;">
                                 <i class="bi bi-upc-scan" style="font-size: 2rem;"></i>
                             </div>
-                            <h5 class="fw-bold text-dark mb-1">Arahkan Barcode / QR Code</h5>
-                            <p class="text-muted small mb-0">Dekatkan barcode/QR pada ID Card ke barcode scanner hardware Anda. Sistem membaca otomatis.</p>
+                            @if($allowQrCode)
+                                <h5 class="fw-bold text-dark mb-1">Arahkan Barcode / QR Code</h5>
+                                <p class="text-muted small mb-0">Dekatkan Barcode atau QR Code ID Card ke scanner. Sistem membaca otomatis.</p>
+                                <div class="mt-2">
+                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Barcode & QR Code Diizinkan
+                                    </span>
+                                </div>
+                            @else
+                                <h5 class="fw-bold text-dark mb-1">Arahkan Barcode ID Card</h5>
+                                <p class="text-muted small mb-0">Wajib gunakan ID Card fisik dengan Barcode garis. <span class="text-danger fw-semibold">QR Code ditolak.</span></p>
+                                <div class="mt-2">
+                                    <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
+                                        <i class="bi bi-shield-x me-1"></i>Hanya Barcode Garis (QR Code Nonaktif)
+                                    </span>
+                                </div>
+                            @endif
                         </div>
                         
                         <!-- Toggle Webcam Scanner -->
@@ -401,8 +416,20 @@
     let lastScanTime = 0;
     const SAME_CODE_COOLDOWN = 6000; // Abaikan barcode yang sama jika di-scan ulang dalam 6 detik
     
-    function processScanCode(code) {
+    function processScanCode(code, format = '') {
         const currentTime = Date.now();
+        const allowQr = {{ $allowQrCode ? 'true' : 'false' }};
+
+        // Deteksi cepat QR Code jika setting QR dinonaktifkan
+        const isQr = format === 'QR_CODE' || code.startsWith('QR:') || code.startsWith('http://') || code.startsWith('https://');
+        if (!allowQr && isQr) {
+            showScanError({
+                name: "QR CODE DITOLAK",
+                category: "KEBIJAKAN SEKOLAH",
+                message: "Absensi menggunakan QR Code dinonaktifkan oleh sekolah. Wajib gunakan kartu fisik dengan Barcode garis!"
+            });
+            return;
+        }
         
         // 1. Blokir barcode yang SAMA jika di-scan berulang kali dalam jeda cooldown
         if (code === lastScannedCode && (currentTime - lastScanTime) < SAME_CODE_COOLDOWN) {
@@ -425,7 +452,7 @@
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             },
-            body: JSON.stringify({ code: code })
+            body: JSON.stringify({ code: code, format: format })
         })
         .then(res => res.json())
         .then(data => {
@@ -616,7 +643,15 @@
     }
 
     function onScanSuccess(decodedText, decodedResult) {
-        processScanCode(decodedText);
+        let formatName = '';
+        if (decodedResult && decodedResult.result && decodedResult.result.format) {
+            formatName = decodedResult.result.format.formatName || '';
+        } else {
+            // Default webcam detection format jika tidak tersedia adalah QR_CODE
+            formatName = 'QR_CODE';
+        }
+
+        processScanCode(decodedText, formatName);
     }
 
     function onScanError(errorMessage) {}

@@ -13,10 +13,31 @@ class AttendanceService
      * Memproses scan Barcode/QR Code untuk check-in atau check-out.
      *
      * @param string $code Kode NIS/NIP/kartu siswa/karyawan
+     * @param string|null $format Format barcode/QR yang terdeteksi
      * @return array Response detail status absensi
      */
-    public function processScan(string $code): array
+    public function processScan(string $code, ?string $format = null): array
     {
+        $allowQrCode = Setting::get('allow_qrcode', '1') == '1';
+
+        // Verifikasi apakah pemindaian terdeteksi sebagai QR Code
+        $isQrCode = in_array(strtoupper((string) $format), ['QR_CODE', 'QRCODE', 'QR'])
+            || str_starts_with(strtoupper($code), 'QR:')
+            || str_starts_with(strtoupper($code), 'QR-')
+            || filter_var($code, FILTER_VALIDATE_URL);
+
+        if (!$allowQrCode && $isQrCode) {
+            return [
+                'success' => false,
+                'message' => 'PEMINDAIAN DITOLAK: Absensi menggunakan QR Code dinonaktifkan oleh sekolah. Wajib gunakan kartu fisik dengan Barcode garis!'
+            ];
+        }
+
+        // Jika QR Code diizinkan dan memiliki prefix QR:, bersihkan untuk pencarian ID
+        if (str_starts_with(strtoupper($code), 'QR:')) {
+            $code = substr($code, 3);
+        }
+
         // 1. Cari data Employee berdasarkan kode beserta relasi kategorinya
         $employee = Employee::with('category')->where('code', $code)->where('is_active', true)->first();
 

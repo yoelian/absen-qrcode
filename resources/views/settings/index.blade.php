@@ -96,6 +96,23 @@
                 </h5>
 
                 <div class="row g-3 mb-4">
+                    <div class="col-md-12">
+                        <label class="form-label text-dark fw-semibold">Format Pemindaian yang Diizinkan (Mode Scanner)</label>
+                        @php
+                            $allowQr = old('allow_qrcode', App\Models\Setting::get('allow_qrcode', '1'));
+                        @endphp
+                        <select name="allow_qrcode" class="form-select @error('allow_qrcode') is-invalid @enderror" required>
+                            <option value="1" {{ $allowQr == '1' ? 'selected' : '' }}>✅ Semua Diizinkan (Barcode Garis & QR Code Digital)</option>
+                            <option value="0" {{ $allowQr == '0' ? 'selected' : '' }}>⛔ Hanya Barcode Garis (Tolak Seluruh Pemindaian QR Code)</option>
+                        </select>
+                        <div class="form-text">Pilih <b>Hanya Barcode Garis</b> untuk mewajibkan siswa membawa ID Card fisik dengan Barcode garis. Jika siswa/staff mencoba men-scan QR Code (misal dari foto HP), sistem akan otomatis menolak absensi.</div>
+                        @error('allow_qrcode')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label text-dark fw-semibold">Jeda Waktu (Cooldown) Scan Ganda (dalam menit)</label>
                         <input type="number" name="scan_cooldown_minutes" class="form-control @error('scan_cooldown_minutes') is-invalid @enderror" value="{{ old('scan_cooldown_minutes', App\Models\Setting::get('scan_cooldown_minutes', '1')) }}" min="1" required>

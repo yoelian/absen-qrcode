@@ -40,7 +40,9 @@ class AttendanceController extends Controller
             ->take(20)
             ->get();
 
-        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances'));
+        $allowQrCode = Setting::get('allow_qrcode', '1') == '1';
+
+        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances', 'allowQrCode'));
     }
 
     /**
@@ -49,10 +51,11 @@ class AttendanceController extends Controller
     public function scan(Request $request)
     {
         $request->validate([
-            'code' => 'required|string'
+            'code' => 'required|string',
+            'format' => 'nullable|string',
         ]);
 
-        $result = $this->attendanceService->processScan($request->code);
+        $result = $this->attendanceService->processScan($request->code, $request->format);
 
         if ($result['success']) {
             // Dapatkan path foto/detail tambahan untuk response view
