@@ -283,11 +283,18 @@
                     </div>
                 </div>
 
-                <!-- Footer (Barcode) -->
+                <!-- Footer (Barcode / QR Code) -->
                 <div class="card-footer">
                     <div class="barcode-container">
-                        <!-- C128 adalah tipe barcode standar yang dibaca semua scanner -->
-                        {!! DNS1D::getBarcodeSVG($employee->code, 'C128', 1.5, 33, 'black', true) !!}
+                        @if(isset($scanMode) && $scanMode === 'qrcode_only')
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                {!! DNS2D::getBarcodeSVG($employee->code, 'QRCODE', 2.7, 2.7, 'black') !!}
+                                <div class="barcode-text" style="font-size: 7px; margin-top: 1px;">{{ $employee->code }}</div>
+                            </div>
+                        @else
+                            <!-- C128 adalah tipe barcode standar yang dibaca semua scanner -->
+                            {!! DNS1D::getBarcodeSVG($employee->code, 'C128', 1.5, 33, 'black', true) !!}
+                        @endif
                     </div>
                 </div>
             </div>

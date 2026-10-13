@@ -40,9 +40,11 @@ class AttendanceController extends Controller
             ->take(20)
             ->get();
 
-        $allowQrCode = Setting::get('allow_qrcode', '1') == '1';
+        $scanMode = Setting::get('scan_mode', Setting::get('allow_qrcode', '1') == '0' ? 'barcode_only' : 'all');
+        $allowQrCode = ($scanMode !== 'barcode_only');
+        $allowBarcode = ($scanMode !== 'qrcode_only');
 
-        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances', 'allowQrCode'));
+        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances', 'scanMode', 'allowQrCode', 'allowBarcode'));
     }
 
     /**

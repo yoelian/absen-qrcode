@@ -99,14 +99,22 @@
                     <div class="col-md-12">
                         <label class="form-label text-dark fw-semibold">Format Pemindaian yang Diizinkan (Mode Scanner)</label>
                         @php
-                            $allowQr = old('allow_qrcode', App\Models\Setting::get('allow_qrcode', '1'));
+                            $currentScanMode = old('scan_mode', App\Models\Setting::get('scan_mode', App\Models\Setting::get('allow_qrcode', '1') == '0' ? 'barcode_only' : 'all'));
                         @endphp
-                        <select name="allow_qrcode" class="form-select @error('allow_qrcode') is-invalid @enderror" required>
-                            <option value="1" {{ $allowQr == '1' ? 'selected' : '' }}>✅ Semua Diizinkan (Barcode Garis & QR Code Digital)</option>
-                            <option value="0" {{ $allowQr == '0' ? 'selected' : '' }}>⛔ Hanya Barcode Garis (Tolak Seluruh Pemindaian QR Code)</option>
+                        <select name="scan_mode" class="form-select @error('scan_mode') is-invalid @enderror" required>
+                            <option value="all" {{ $currentScanMode == 'all' ? 'selected' : '' }}>✅ Semua Diizinkan (Barcode Garis & QR Code Digital)</option>
+                            <option value="barcode_only" {{ $currentScanMode == 'barcode_only' ? 'selected' : '' }}>🏷️ Hanya Barcode Garis (Tolak Seluruh Pemindaian QR Code)</option>
+                            <option value="qrcode_only" {{ $currentScanMode == 'qrcode_only' ? 'selected' : '' }}>📱 Hanya QR Code (Tolak Seluruh Pemindaian Barcode Garis)</option>
                         </select>
-                        <div class="form-text">Pilih <b>Hanya Barcode Garis</b> untuk mewajibkan siswa membawa ID Card fisik dengan Barcode garis. Jika siswa/staff mencoba men-scan QR Code (misal dari foto HP), sistem akan otomatis menolak absensi.</div>
-                        @error('allow_qrcode')
+                        <div class="form-text">
+                            Pilih kebijakan format scanner di sekolah:
+                            <ul class="mb-0 mt-1 ps-3 text-muted small">
+                                <li><b>Semua Diizinkan:</b> Fleksibel, siswa bisa scan barcode kartu fisik maupun QR Code.</li>
+                                <li><b>Hanya Barcode Garis:</b> Mewajibkan kartu fisik dengan barcode garis. QR Code (misal foto di HP) akan ditolak.</li>
+                                <li><b>Hanya QR Code:</b> Hanya menerima QR Code. Pemindaian barcode garis akan otomatis ditolak.</li>
+                            </ul>
+                        </div>
+                        @error('scan_mode')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

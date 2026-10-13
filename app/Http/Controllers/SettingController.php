@@ -30,7 +30,7 @@ class SettingController extends Controller
             'headmaster_nip' => 'nullable|string|max:255',
             'scan_cooldown_minutes' => 'required|integer|min:1|max:720',
             'timezone' => 'required|string|in:Asia/Jakarta,Asia/Makassar,Asia/Jayapura',
-            'allow_qrcode' => 'required|in:0,1',
+            'scan_mode' => 'required|in:all,barcode_only,qrcode_only',
         ]);
 
         Setting::set('school_name', $request->school_name);
@@ -46,7 +46,8 @@ class SettingController extends Controller
         Setting::set('headmaster_nip', $request->headmaster_nip);
         Setting::set('scan_cooldown_minutes', $request->scan_cooldown_minutes);
         Setting::set('timezone', $request->timezone);
-        Setting::set('allow_qrcode', $request->allow_qrcode);
+        Setting::set('scan_mode', $request->scan_mode);
+        Setting::set('allow_qrcode', $request->scan_mode === 'barcode_only' ? '0' : '1');
 
         if ($request->hasFile('school_logo')) {
             // Hapus logo lama jika ada

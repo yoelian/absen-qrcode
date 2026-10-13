@@ -18,24 +18,43 @@ class AttendanceService
      */
     public function processScan(string $code, ?string $format = null): array
     {
-        $allowQrCode = Setting::get('allow_qrcode', '1') == '1';
+        $scanMode = Setting::get('scan_mode', Setting::get('allow_qrcode', '1') == '0' ? 'barcode_only' : 'all');
+        $formatUpper = strtoupper(trim((string) $format));
+        $codeUpper = strtoupper(trim($code));
 
         // Verifikasi apakah pemindaian terdeteksi sebagai QR Code
-        $isQrCode = in_array(strtoupper((string) $format), ['QR_CODE', 'QRCODE', 'QR'])
-            || str_starts_with(strtoupper($code), 'QR:')
-            || str_starts_with(strtoupper($code), 'QR-')
+        $isExplicitQr = in_array($formatUpper, ['QR_CODE', 'QRCODE', 'QR', 'DATA_MATRIX', 'AZTEC'])
+            || str_starts_with($codeUpper, 'QR:')
+            || str_starts_with($codeUpper, 'QR-')
             || filter_var($code, FILTER_VALIDATE_URL);
 
-        if (!$allowQrCode && $isQrCode) {
+        // Verifikasi apakah pemindaian terdeteksi sebagai 1D Barcode
+        $isExplicit1DBarcode = in_array($formatUpper, [
+            'CODE_128', 'CODE_39', 'CODE_93', 'CODABAR',
+            'EAN_13', 'EAN_8', 'UPC_A', 'UPC_E', 'ITF', 'RSS_14', 'BARCODE'
+        ]) || str_starts_with($codeUpper, 'BAR:') || str_starts_with($codeUpper, 'BAR-');
+
+        // 1. Validasi Mode: Hanya Barcode Garis (Tolak QR Code)
+        if ($scanMode === 'barcode_only' && $isExplicitQr) {
             return [
                 'success' => false,
                 'message' => 'PEMINDAIAN DITOLAK: Absensi menggunakan QR Code dinonaktifkan oleh sekolah. Wajib gunakan kartu fisik dengan Barcode garis!'
             ];
         }
 
-        // Jika QR Code diizinkan dan memiliki prefix QR:, bersihkan untuk pencarian ID
-        if (str_starts_with(strtoupper($code), 'QR:')) {
+        // 2. Validasi Mode: Hanya QR Code (Tolak Barcode Garis)
+        if ($scanMode === 'qrcode_only' && $isExplicit1DBarcode) {
+            return [
+                'success' => false,
+                'message' => 'PEMINDAIAN DITOLAK: Absensi menggunakan Barcode garis dinonaktifkan oleh sekolah. Wajib gunakan QR Code!'
+            ];
+        }
+
+        // Bersihkan prefix jika ada (QR: atau BAR:)
+        if (str_starts_with($codeUpper, 'QR:')) {
             $code = substr($code, 3);
+        } elseif (str_starts_with($codeUpper, 'BAR:')) {
+            $code = substr($code, 4);
         }
 
         // 1. Cari data Employee berdasarkan kode beserta relasi kategorinya

@@ -85,8 +85,9 @@ class EmployeeController extends Controller
         $schoolLogo = Setting::get('school_logo');
         $kopPemerintah = Setting::get('kop_pemerintah');
         $kopDinas = Setting::get('kop_dinas');
+        $scanMode = Setting::get('scan_mode', Setting::get('allow_qrcode', '1') == '0' ? 'barcode_only' : 'all');
 
-        return view('employees.print_cards', compact('employees', 'schoolName', 'schoolAddress', 'schoolLogo', 'kopPemerintah', 'kopDinas'));
+        return view('employees.print_cards', compact('employees', 'schoolName', 'schoolAddress', 'schoolLogo', 'kopPemerintah', 'kopDinas', 'scanMode'));
     }
 
     public function downloadBarcodes(Request $request)

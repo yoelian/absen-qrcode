@@ -156,23 +156,37 @@
                 <div class="scan-card h-100 d-flex flex-column justify-content-between">
                     <div>
                         <div class="scanner-target-box text-center mb-3">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(2, 132, 199, 0.1); color: #0284c7;">
-                                <i class="bi bi-upc-scan" style="font-size: 2rem;"></i>
-                            </div>
-                            @if($allowQrCode)
-                                <h5 class="fw-bold text-dark mb-1">Arahkan Barcode / QR Code</h5>
-                                <p class="text-muted small mb-0">Dekatkan Barcode atau QR Code ID Card ke scanner. Sistem membaca otomatis.</p>
+                            @if($scanMode === 'qrcode_only')
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(2, 132, 199, 0.1); color: #0284c7;">
+                                    <i class="bi bi-qr-code" style="font-size: 2rem;"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-1">Arahkan QR Code</h5>
+                                <p class="text-muted small mb-0">Dekatkan QR Code ID Card ke scanner atau kamera. <span class="text-danger fw-semibold">Barcode garis ditolak.</span></p>
                                 <div class="mt-2">
-                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
-                                        <i class="bi bi-check-circle-fill me-1"></i>Barcode & QR Code Diizinkan
+                                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
+                                        <i class="bi bi-qr-code me-1"></i>Hanya QR Code (Barcode Garis Nonaktif)
                                     </span>
                                 </div>
-                            @else
+                            @elseif($scanMode === 'barcode_only')
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                                    <i class="bi bi-upc-scan" style="font-size: 2rem;"></i>
+                                </div>
                                 <h5 class="fw-bold text-dark mb-1">Arahkan Barcode ID Card</h5>
                                 <p class="text-muted small mb-0">Wajib gunakan ID Card fisik dengan Barcode garis. <span class="text-danger fw-semibold">QR Code ditolak.</span></p>
                                 <div class="mt-2">
                                     <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
                                         <i class="bi bi-shield-x me-1"></i>Hanya Barcode Garis (QR Code Nonaktif)
+                                    </span>
+                                </div>
+                            @else
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 64px; height: 64px; background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                                    <i class="bi bi-upc-scan" style="font-size: 2rem;"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-1">Arahkan Barcode / QR Code</h5>
+                                <p class="text-muted small mb-0">Dekatkan Barcode atau QR Code ID Card ke scanner. Sistem membaca otomatis.</p>
+                                <div class="mt-2">
+                                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-1" style="font-size: 0.75rem;">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Barcode & QR Code Diizinkan
                                     </span>
                                 </div>
                             @endif
@@ -418,17 +432,32 @@
     
     function processScanCode(code, format = '') {
         const currentTime = Date.now();
-        const allowQr = {{ $allowQrCode ? 'true' : 'false' }};
+        const scanMode = '{{ $scanMode }}';
 
-        // Deteksi cepat QR Code jika setting QR dinonaktifkan
-        const isQr = format === 'QR_CODE' || code.startsWith('QR:') || code.startsWith('http://') || code.startsWith('https://');
-        if (!allowQr && isQr) {
-            showScanError({
-                name: "QR CODE DITOLAK",
-                category: "KEBIJAKAN SEKOLAH",
-                message: "Absensi menggunakan QR Code dinonaktifkan oleh sekolah. Wajib gunakan kartu fisik dengan Barcode garis!"
-            });
-            return;
+        // 1. Validasi Mode: Hanya Barcode Garis (Tolak QR Code)
+        if (scanMode === 'barcode_only') {
+            const isQr = format === 'QR_CODE' || code.startsWith('QR:') || code.startsWith('http://') || code.startsWith('https://');
+            if (isQr) {
+                showScanError({
+                    name: "QR CODE DITOLAK",
+                    category: "KEBIJAKAN SEKOLAH",
+                    message: "Absensi menggunakan QR Code dinonaktifkan oleh sekolah. Wajib gunakan kartu fisik dengan Barcode garis!"
+                });
+                return;
+            }
+        }
+
+        // 2. Validasi Mode: Hanya QR Code (Tolak Barcode Garis)
+        if (scanMode === 'qrcode_only') {
+            const is1DBarcode = (format && format !== 'QR_CODE') || code.startsWith('BAR:');
+            if (is1DBarcode) {
+                showScanError({
+                    name: "BARCODE DITOLAK",
+                    category: "KEBIJAKAN SEKOLAH",
+                    message: "Absensi menggunakan Barcode garis dinonaktifkan oleh sekolah. Wajib gunakan QR Code!"
+                });
+                return;
+            }
         }
         
         // 1. Blokir barcode yang SAMA jika di-scan berulang kali dalam jeda cooldown
