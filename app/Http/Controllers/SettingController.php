@@ -31,6 +31,7 @@ class SettingController extends Controller
             'scan_cooldown_minutes' => 'required|integer|min:1|max:720',
             'timezone' => 'required|string|in:Asia/Jakarta,Asia/Makassar,Asia/Jayapura',
             'scan_mode' => 'required|in:all,barcode_only,qrcode_only',
+            'enable_webcam' => 'required|in:0,1',
         ]);
 
         Setting::set('school_name', $request->school_name);
@@ -48,6 +49,7 @@ class SettingController extends Controller
         Setting::set('timezone', $request->timezone);
         Setting::set('scan_mode', $request->scan_mode);
         Setting::set('allow_qrcode', $request->scan_mode === 'barcode_only' ? '0' : '1');
+        Setting::set('enable_webcam', $request->enable_webcam);
 
         if ($request->hasFile('school_logo')) {
             // Hapus logo lama jika ada

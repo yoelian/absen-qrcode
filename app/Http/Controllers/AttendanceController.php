@@ -43,8 +43,25 @@ class AttendanceController extends Controller
         $scanMode = Setting::get('scan_mode', Setting::get('allow_qrcode', '1') == '0' ? 'barcode_only' : 'all');
         $allowQrCode = ($scanMode !== 'barcode_only');
         $allowBarcode = ($scanMode !== 'qrcode_only');
+        $enableWebcam = Setting::get('enable_webcam', '1') == '1';
 
-        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances', 'scanMode', 'allowQrCode', 'allowBarcode'));
+        return view('attendance.scan', compact('schoolName', 'schoolLogo', 'recentAttendances', 'scanMode', 'allowQrCode', 'allowBarcode', 'enableWebcam'));
+    }
+
+    /**
+     * Mengaktifkan atau menonaktifkan fitur webcam scanner secara cepat dari layar absen.
+     */
+    public function toggleWebcam(Request $request)
+    {
+        $current = Setting::get('enable_webcam', '1') == '1';
+        $newState = $current ? '0' : '1';
+        Setting::set('enable_webcam', $newState);
+
+        $msg = $newState == '1' 
+            ? 'Fitur kamera webcam berhasil diaktifkan.' 
+            : 'Fitur kamera webcam dinonaktifkan. Layar absen dialihkan ke mode hardware scanner yang lega.';
+
+        return back()->with('success', $msg);
     }
 
     /**

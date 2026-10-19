@@ -121,6 +121,25 @@
                 </div>
 
                 <div class="row g-3 mb-4">
+                    <div class="col-md-12">
+                        <label class="form-label text-dark fw-semibold">Fitur Pemindai Kamera / Webcam di Layar Absen</label>
+                        @php
+                            $currentWebcam = old('enable_webcam', App\Models\Setting::get('enable_webcam', '1'));
+                        @endphp
+                        <select name="enable_webcam" class="form-select @error('enable_webcam') is-invalid @enderror" required>
+                            <option value="1" {{ $currentWebcam == '1' ? 'selected' : '' }}>📷 Aktifkan Fitur Webcam (Tampilkan Tombol & Area Kamera)</option>
+                            <option value="0" {{ $currentWebcam == '0' ? 'selected' : '' }}>🖥️ Nonaktifkan Webcam (Khusus Scanner Barcode Fisik, Layar Lebih Luas & Lega)</option>
+                        </select>
+                        <div class="form-text">
+                            Pilih <b>Nonaktifkan Webcam</b> jika sekolah menggunakan barcode scanner USB/wireless hardware. Tombol dan wadah kamera akan disembunyikan sehingga layar absensi memiliki ruang yang luas untuk kartu <i>Siap Memindai</i> dan tabel riwayat scan terbaru secara berdampingan (side-by-side).
+                        </div>
+                        @error('enable_webcam')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label text-dark fw-semibold">Jeda Waktu (Cooldown) Scan Ganda (dalam menit)</label>
                         <input type="number" name="scan_cooldown_minutes" class="form-control @error('scan_cooldown_minutes') is-invalid @enderror" value="{{ old('scan_cooldown_minutes', App\Models\Setting::get('scan_cooldown_minutes', '1')) }}" min="1" required>

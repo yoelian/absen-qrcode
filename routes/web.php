@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [AttendanceController::class, 'scanPage'])->name('scan');
 Route::get('/attendance/scan', [AttendanceController::class, 'scanPage'])->name('attendance.scan.page');
 Route::post('/attendance/scan', [AttendanceController::class, 'scan'])->name('attendance.scan');
+Route::post('/attendance/toggle-webcam', [AttendanceController::class, 'toggleWebcam'])->name('attendance.toggle-webcam');
 
 // 2. Proteksi Halaman Administrasi (Hanya Admin / Operator terautentikasi)
 Route::middleware(['auth'])->group(function () {
